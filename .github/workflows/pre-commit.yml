@@ -1,5 +1,5 @@
 # This can check whether all pre-commit jobs pass
-name: Pre-commit Checks
+name: pre-commit Checks
 
 on:
   pull_request:
