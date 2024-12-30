@@ -13,3 +13,11 @@ repos:
         files: ^(cvxpy)
         args:
           [ '--license-filepath', 'copyright.txt', '--no-extra-eol' ]
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.26.3
+    hooks:
+      - id: check-dependabot
+        args: ["--verbose"]
+      - id: check-github-workflows
+        args: ["--verbose"]
