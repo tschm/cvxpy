@@ -24,4 +24,4 @@ jobs:
         run: pip install .
 
       - name: Run dependency check
-        run: deptry .
+        run: deptry cvxpy
