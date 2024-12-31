@@ -24,4 +24,4 @@ jobs:
         run: pip install .
 
       - name: Run dependency check
-        run: deptry cvxpy
+        run: deptry cvxpy --per-rule-ignores "DEP003=cvxpy"
