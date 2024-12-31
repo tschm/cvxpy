@@ -1,0 +1,25 @@
+name: deptry
+
+on:
+    pull_request:
+    push:
+        branches:
+            - master
+        tags:
+          - '*'
+
+jobs:
+  deptry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/checkout@v4
+      - name: Install cvxpy dependencies and deptry
+        run: |
+          pip install .
+          pip install --no-cache-dir deptry
+      - name: Run deptry
+        run: |
+          deptry cvxpy
