@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -30,14 +29,14 @@ class sum_largest(Atom):
 
     def __init__(self, x, k: int) -> None:
         self.k = k
-        super(sum_largest, self).__init__(x)
+        super().__init__(x)
 
     def validate_arguments(self) -> None:
         """Verify that k is a positive integer.
         """
         if int(self.k) != self.k or self.k <= 0:
             raise ValueError("Second argument must be a positive integer.")
-        super(sum_largest, self).validate_arguments()
+        super().validate_arguments()
 
     def numeric(self, values):
         """
@@ -67,12 +66,12 @@ class sum_largest(Atom):
         D[indices] = 1
         return [sp.csc_matrix(D)]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return tuple()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Same as argument.

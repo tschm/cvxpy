@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import numbers
 import warnings
-from typing import List, Literal, Tuple
+from typing import Literal
 
 import numpy as np
 
@@ -51,7 +51,7 @@ class reshape(AffAtom):
     def __init__(
         self,
         expr,
-        shape: int | Tuple[int, ...],
+        shape: int | tuple[int, ...],
         order: Literal["F", "C", None] = None
     ) -> None:
         if isinstance(shape, numbers.Integral):
@@ -69,10 +69,10 @@ class reshape(AffAtom):
             order = 'F'
         assert order in ['F', 'C']
         self.order = order
-        super(reshape, self).__init__(expr)
+        super().__init__(expr)
 
     @staticmethod
-    def _infer_shape(shape: Tuple[int, ...], size: int) -> Tuple[int, ...]:
+    def _infer_shape(shape: tuple[int, ...], size: int) -> tuple[int, ...]:
         assert shape.count(-1) == 1, "Only one dimension can be -1."
         if len(shape) == 1:
             shape = (size,)
@@ -111,10 +111,10 @@ class reshape(AffAtom):
         new_len = size_from_shape(self._shape)
         if not old_len == new_len:
             raise ValueError(
-                "Invalid reshape dimensions %s." % (self._shape,)
+                f"Invalid reshape dimensions {self._shape}."
             )
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape from the rows, cols arguments.
         """
         return self._shape
@@ -125,8 +125,8 @@ class reshape(AffAtom):
         return [self._shape, self.order]
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Reshape
 
         Parameters

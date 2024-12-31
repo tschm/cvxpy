@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -49,7 +48,7 @@ class one_minus_pos(Atom):
         An Expression.
     """
     def __init__(self, x) -> None:
-        super(one_minus_pos, self).__init__(x)
+        super().__init__(x)
         self.args[0] = x
         self._ones = np.ones(self.args[0].shape)
 
@@ -61,14 +60,14 @@ class one_minus_pos(Atom):
         return sp.csc_matrix(-1.0 * self._ones)
 
     def name(self) -> str:
-        return "%s(%s)" % (self.__class__.__name__, self.args[0])
+        return f"{self.__class__.__name__}({self.args[0]})"
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return self.args[0].shape
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (True, False)

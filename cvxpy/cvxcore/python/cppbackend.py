@@ -37,7 +37,7 @@ def build_matrix(
     param_to_col: dict,
     var_length: int,
     constr_length: int,
-    linOps: List[lo.LinOp],
+    linOps: list[lo.LinOp],
 ) -> sp.csc_matrix:
     lin_vec = cvxcore.ConstLinOpVector()
 

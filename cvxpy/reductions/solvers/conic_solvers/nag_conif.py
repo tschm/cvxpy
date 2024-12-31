@@ -265,7 +265,7 @@ class NAG(ConicSolver):
                 opt.handle_opt_set(handle, optstr)
             kwargs.remove("nag_params")
         if kwargs:
-            raise ValueError("invalid keyword-argument '{0}'".format(kwargs[0]))
+            raise ValueError(f"invalid keyword-argument '{kwargs[0]}'")
 
         # Use an explicit I/O manager for abbreviated iteration output:
         iom = utils.FileObjManager(locus_in_output=False)

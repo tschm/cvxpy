@@ -62,7 +62,7 @@ class Sum(AxisAtom, AffAtom):
     """
 
     def __init__(self, expr, axis=None, keepdims=False) -> None:
-        super(Sum, self).__init__(expr, axis=axis, keepdims=keepdims)
+        super().__init__(expr, axis=axis, keepdims=keepdims)
 
     def is_atom_log_log_convex(self) -> bool:
         """Is the atom log-log convex?"""

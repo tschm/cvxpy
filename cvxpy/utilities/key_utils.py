@@ -17,14 +17,14 @@ limitations under the License.
 # Utility functions to handle indexing/slicing into an expression.
 
 import numbers
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 
 
 # TODO(akshayka): This module needs to be updated in order to handle
 # NumPy 0/1D arrays.
-def validate_key(key, shape: Tuple[int, ...]):
+def validate_key(key, shape: tuple[int, ...]):
     """Check if the key is a valid index.
 
     Args:
@@ -146,9 +146,9 @@ def slice_to_str(slc):
         return str(slc.start)
     endpoints = [none_to_empty(val) for val in (slc.start, slc.stop)]
     if slc.step is not None and slc.step != 1:
-        return "%s:%s:%s" % (endpoints[0], endpoints[1], slc.step)
+        return f"{endpoints[0]}:{endpoints[1]}:{slc.step}"
     else:
-        return "%s:%s" % (endpoints[0], endpoints[1])
+        return f"{endpoints[0]}:{endpoints[1]}"
 
 
 def none_to_empty(val):
@@ -172,7 +172,7 @@ def is_single_index(slc) -> bool:
         slc.start + step >= slc.stop
 
 
-def shape(key, orig_key, shape: Tuple[int, ...]) -> Tuple[int, ...]:
+def shape(key, orig_key, shape: tuple[int, ...]) -> tuple[int, ...]:
     """Finds the dimensions of a sliced expression.
 
     Args:

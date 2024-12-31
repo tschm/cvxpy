@@ -43,7 +43,7 @@ class GLPK_MI(GLPK):
         tuple
             (dict of arguments needed for the solver, inverse data)
         """
-        data, inv_data = super(GLPK_MI, self).apply(problem)
+        data, inv_data = super().apply(problem)
         var = problem.x
         data[s.BOOL_IDX] = [int(t[0]) for t in var.boolean_idx]
         data[s.INT_IDX] = [int(t[0]) for t in var.integer_idx]
@@ -76,8 +76,8 @@ class GLPK_MI(GLPK):
                                           data[s.H],
                                           data[s.A],
                                           data[s.B],
-                                          set(int(i) for i in data[s.INT_IDX]),
-                                          set(int(i) for i in data[s.BOOL_IDX]))
+                                          {int(i) for i in data[s.INT_IDX]},
+                                          {int(i) for i in data[s.BOOL_IDX]})
             results_dict = {}
             results_dict["status"] = results_tup[0]
             results_dict["x"] = results_tup[1]

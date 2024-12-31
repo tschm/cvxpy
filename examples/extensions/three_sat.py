@@ -63,7 +63,7 @@ for clause_vars, negated in clauses:
     terms = []
     for index,negation in zip(clause_vars,negated):
         if negation:
-            terms.append( (1-vars[index]) )
+            terms.append( 1-vars[index] )
         else:
             terms.append(vars[index])
     constraints.append(sum(terms) >= 1)

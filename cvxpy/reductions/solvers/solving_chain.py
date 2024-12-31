@@ -187,7 +187,7 @@ def construct_solving_chain(problem, candidates,
                             canon_backend: str | None = None,
                             solver_opts: dict | None = None,
                             specified_solver: str | None = None,
-                            ) -> "SolvingChain":
+                            ) -> SolvingChain:
     """Build a reduction chain from a problem to an installed solver.
 
     Note that if the supplied problem has 0 variables, then the solver
@@ -444,13 +444,13 @@ class SolvingChain(Chain):
     """
 
     def __init__(self, problem=None, reductions=None) -> None:
-        super(SolvingChain, self).__init__(problem=problem,
+        super().__init__(problem=problem,
                                            reductions=reductions)
         if not isinstance(self.reductions[-1], Solver):
             raise ValueError("Solving chains must terminate with a Solver.")
         self.solver = self.reductions[-1]
 
-    def prepend(self, chain) -> "SolvingChain":
+    def prepend(self, chain) -> SolvingChain:
         """
         Create and return a new SolvingChain by concatenating
         chain with this instance.

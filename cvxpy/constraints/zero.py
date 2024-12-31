@@ -29,7 +29,7 @@ class Zero(Constraint):
     ``x`` as its argument.
     """
     def __init__(self, expr, constr_id=None) -> None:
-        super(Zero, self).__init__([expr], constr_id)
+        super().__init__([expr], constr_id)
 
     def __str__(self):
         """Returns a string showing the mathematical constraint.
@@ -39,7 +39,7 @@ class Zero(Constraint):
     def __repr__(self) -> str:
         """Returns a string with information about the constraint.
         """
-        return "%s(%s)" % (self.__class__.__name__,
+        return "{}({})".format(self.__class__.__name__,
                            repr(self.args[0]))
 
     @property
@@ -101,7 +101,7 @@ class Equality(Constraint):
     """
     def __init__(self, lhs, rhs, constr_id=None) -> None:
         self._expr = lhs - rhs
-        super(Equality, self).__init__([lhs, rhs], constr_id)
+        super().__init__([lhs, rhs], constr_id)
 
     def __str__(self):
         """Returns a string showing the mathematical constraint.
@@ -111,11 +111,11 @@ class Equality(Constraint):
     def __repr__(self) -> str:
         """Returns a string with information about the constraint.
         """
-        return "%s(%s, %s)" % (self.__class__.__name__,
+        return "{}({}, {})".format(self.__class__.__name__,
                                repr(self.args[0]), repr(self.args[1]))
 
     def _construct_dual_variables(self, args) -> None:
-        super(Equality, self)._construct_dual_variables([self._expr])
+        super()._construct_dual_variables([self._expr])
 
     @property
     def expr(self):
@@ -132,7 +132,7 @@ class Equality(Constraint):
         return self.expr.size
 
     def name(self) -> str:
-        return "%s == %s" % (self.args[0], self.args[1])
+        return f"{self.args[0]} == {self.args[1]}"
 
     def is_dcp(self, dpp: bool = False) -> bool:
         """An equality constraint is DCP if its argument is affine."""

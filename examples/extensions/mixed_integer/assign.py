@@ -26,7 +26,7 @@ class Assign(Boolean):
     """ An assignment matrix. """
     def __init__(self, rows, cols, *args, **kwargs) -> None:
         assert rows >= cols
-        super(Assign, self).__init__(rows=rows, cols=cols, *args, **kwargs)
+        super().__init__(rows=rows, cols=cols, *args, **kwargs)
 
     def init_z(self):
         self.z.value = np.ones(self.size)/self.size[1]
@@ -57,7 +57,7 @@ class Assign(Boolean):
 
     # In the relaxation, we have 0 <= var <= 1.
     def canonicalize(self):
-        obj, constraints = super(Assign, self).canonicalize()
+        obj, constraints = super().canonicalize()
         shape = (self.size[1], 1)
         one_row_vec = lu.create_const(np.ones(shape), shape)
         shape = (1, self.size[0])

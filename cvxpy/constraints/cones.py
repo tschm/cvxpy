@@ -39,7 +39,7 @@ class Cone(Constraint):
     """
 
     def __init__(self, args, constr_id=None) -> None:
-        super(Cone, self).__init__(args, constr_id)
+        super().__init__(args, constr_id)
 
     def _dual_cone(self, args):
         """Method for modelling problems with the dual cone of `Cone`

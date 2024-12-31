@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Tuple
 
 import numpy as np
 
@@ -69,10 +68,10 @@ class PowCone3D(Cone):
             msg = ("All arguments must have the same shapes. Provided arguments have"
                    "shapes %s" % str(arg_shapes))
             raise ValueError(msg)
-        super(PowCone3D, self).__init__([self.x, self.y, self.z],
+        super().__init__([self.x, self.y, self.z],
                                         constr_id)
     def __str__(self) -> str:
-        return "Pow3D(%s, %s, %s; %s)" % (self.x, self.y, self.z, self.alpha)
+        return f"Pow3D({self.x}, {self.y}, {self.z}; {self.alpha})"
 
     @property
     def residual(self):
@@ -105,7 +104,7 @@ class PowCone3D(Cone):
     def num_cones(self):
         return self.x.size
 
-    def cone_sizes(self) -> List[int]:
+    def cone_sizes(self) -> list[int]:
         return [3]*self.num_cones()
 
     def is_dcp(self, dpp: bool = False) -> bool:
@@ -123,7 +122,7 @@ class PowCone3D(Cone):
         return self.is_dcp()
 
     @property
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         s = (3,) + self.x.shape
         # Note: this can be a 3-tuple of x.ndim == 2.
         return s
@@ -214,10 +213,10 @@ class PowConeND(Cone):
         self.axis = axis
         if z.ndim == 0:
             z = z.flatten(order='F')
-        super(PowConeND, self).__init__([W, z], constr_id)
+        super().__init__([W, z], constr_id)
 
     def __str__(self) -> str:
-        return "PowND(%s, %s; %s)" % (self.W, self.z, self.alpha)
+        return f"PowND({self.W}, {self.z}; {self.alpha})"
 
     def is_imag(self) -> bool:
         return False
@@ -251,7 +250,7 @@ class PowConeND(Cone):
         cone_size = 1 + self.args[0].shape[self.axis]
         return cone_size * self.num_cones()
 
-    def cone_sizes(self) -> List[int]:
+    def cone_sizes(self) -> list[int]:
         cone_size = 1 + self.args[0].shape[self.axis]
         return [cone_size] * self.num_cones()
 

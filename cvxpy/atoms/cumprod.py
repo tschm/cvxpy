@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Tuple
 
 import numpy as np
 
@@ -34,7 +33,7 @@ class cumprod(AffAtom, AxisAtom):
         The axis to multiply across.
     """
     def __init__(self, expr: Expression, axis: int = 0) -> None:
-        super(cumprod, self).__init__(expr, axis)
+        super().__init__(expr, axis)
 
     @AffAtom.numpy_numeric
     def numeric(self, values) -> np.ndarray:
@@ -43,7 +42,7 @@ class cumprod(AffAtom, AxisAtom):
         """
         return np.cumprod(values[0], axis=self.axis)
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """The same as the input."""
         return self.args[0].shape
 

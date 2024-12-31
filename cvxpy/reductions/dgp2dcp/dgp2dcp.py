@@ -57,7 +57,7 @@ class Dgp2Dcp(Canonicalization):
     def __init__(self, problem=None) -> None:
         # Canonicalization of DGP is stateful; canon_methods created
         # in `apply`.
-        super(Dgp2Dcp, self).__init__(canon_methods=None, problem=problem)
+        super().__init__(canon_methods=None, problem=problem)
 
     def accepts(self, problem):
         """A problem is accepted if it is DGP.
@@ -72,7 +72,7 @@ class Dgp2Dcp(Canonicalization):
             raise ValueError("The supplied problem is not DGP.")
 
         self.canon_methods = DgpCanonMethods()
-        equiv_problem, inverse_data = super(Dgp2Dcp, self).apply(problem)
+        equiv_problem, inverse_data = super().apply(problem)
         inverse_data._problem = problem
         return equiv_problem, inverse_data
 
@@ -99,7 +99,7 @@ class Dgp2Dcp(Canonicalization):
             return expr.copy(args), []
 
     def invert(self, solution, inverse_data):
-        solution = super(Dgp2Dcp, self).invert(solution, inverse_data)
+        solution = super().invert(solution, inverse_data)
         if solution.status == settings.SOLVER_ERROR:
             return solution
         for vid, value in solution.primal_vars.items():

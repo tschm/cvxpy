@@ -52,7 +52,7 @@ class PSD(Cone):
             raise ValueError(
                 "Non-square matrix in positive definite constraint."
             )
-        super(PSD, self).__init__([expr], constr_id)
+        super().__init__([expr], constr_id)
 
     def name(self) -> str:
         return "%s >> 0" % self.args[0]

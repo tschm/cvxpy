@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
@@ -63,7 +63,7 @@ class index(AffAtom):
         else:
             self._orig_key = orig_key
             self.key = key
-        super(index, self).__init__(expr)
+        super().__init__(expr)
 
     def is_atom_log_log_convex(self) -> bool:
         """Is the atom log-log convex?"""
@@ -82,7 +82,7 @@ class index(AffAtom):
         """Returns the index/slice into the given value."""
         return values[0][self._orig_key]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape of the index expression."""
         return ku.shape(self.key, self._orig_key, self.args[0].shape)
 
@@ -91,8 +91,8 @@ class index(AffAtom):
         return [self.key, self._orig_key]
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, list[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Index/slice into the expression.
 
         Parameters
@@ -127,7 +127,7 @@ class special_index(AffAtom):
         idx_mat = np.reshape(idx_mat, expr.shape, order='F')
         self._select_mat = idx_mat[key]
         self._shape = self._select_mat.shape
-        super(special_index, self).__init__(expr)
+        super().__init__(expr)
 
     def is_atom_log_log_convex(self) -> bool:
         """Is the atom log-log convex?
@@ -149,7 +149,7 @@ class special_index(AffAtom):
         """
         return values[0][self.key]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape of the index expression."""
         return self._shape
 
@@ -175,8 +175,8 @@ class special_index(AffAtom):
 
     def graph_implementation(self,
                             arg_objs: list,
-                            shape: Tuple[int, ...],
-                            data=None) -> Tuple[lo.LinOp, list[Constraint]]:
+                            shape: tuple[int, ...],
+                            data=None) -> tuple[lo.LinOp, list[Constraint]]:
         """Index/slice into the expression.
 
         Parameters

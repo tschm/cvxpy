@@ -85,7 +85,7 @@ class CBC(ConicSolver):
         tuple
             (dict of arguments needed for the solver, inverse data)
         """
-        data, inv_data = super(CBC, self).apply(problem)
+        data, inv_data = super().apply(problem)
         variables = problem.x
         data[s.BOOL_IDX] = [int(t[0]) for t in variables.boolean_idx]
         data[s.INT_IDX] = [int(t[0]) for t in variables.integer_idx]

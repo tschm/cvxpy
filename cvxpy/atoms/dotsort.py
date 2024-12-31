@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -45,7 +44,7 @@ class dotsort(Atom):
     """
 
     def __init__(self, X, W) -> None:
-        super(dotsort, self).__init__(X, W)
+        super().__init__(X, W)
 
     def validate_arguments(self) -> None:
         if not self.args[1].is_constant():
@@ -53,7 +52,7 @@ class dotsort(Atom):
         if self.args[0].size < self.args[1].size:
             raise ValueError("The size of of W must be less or equal to the size of X.")
 
-        super(dotsort, self).validate_arguments()
+        super().validate_arguments()
 
     def numeric(self, values):
         """
@@ -82,12 +81,12 @@ class dotsort(Atom):
         sorted_w = np.sort(w_padded)
         return [sp.csc_matrix((sorted_w, (indices, np.zeros(n))), shape=(n, 1))]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return tuple()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Same as argument.
@@ -134,8 +133,8 @@ class dotsort(Atom):
         return None
 
     @staticmethod
-    def _get_args_from_values(values: List[np.ndarray]) \
-            -> Tuple[np.ndarray, np.ndarray]:
+    def _get_args_from_values(values: list[np.ndarray]) \
+            -> tuple[np.ndarray, np.ndarray]:
         x = values[0].flatten()
         w = values[1].flatten()
 

@@ -592,7 +592,7 @@ def split(w_dyad):
                 return tuple(child1), tuple(child2)
         bit /= 2
 
-    raise ValueError('Something wrong with input {}'.format(w_dyad))
+    raise ValueError(f'Something wrong with input {w_dyad}')
 
 
 def decompose(w_dyad):
@@ -607,7 +607,7 @@ def decompose(w_dyad):
     """
 
     if not is_dyad_weight(w_dyad):
-        raise ValueError('input must be a dyadic weight vector. got: {}'.format(w_dyad))
+        raise ValueError(f'input must be a dyadic weight vector. got: {w_dyad}')
 
     tree = {}
     todo = [tuple(w_dyad)]

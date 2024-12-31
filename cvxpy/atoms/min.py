@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 
@@ -39,7 +39,7 @@ class min(AxisAtom):
     def __init__(self, x, axis: Optional[int] = None, keepdims: bool = False) -> None:
         if isinstance(axis, cvxtypes.expression()):
             raise ValueError(min.__EXPR_AXIS_ERROR__)
-        super(min, self).__init__(x, axis=axis, keepdims=keepdims)
+        super().__init__(x, axis=axis, keepdims=keepdims)
 
     @Atom.numpy_numeric
     def numeric(self, values):
@@ -78,7 +78,7 @@ class min(AxisAtom):
         D[idx] = 1
         return D
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Same as argument.

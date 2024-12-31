@@ -90,7 +90,7 @@ class Exotic2Common(Canonicalization):
     }
 
     def __init__(self, problem=None) -> None:
-        super(Exotic2Common, self).__init__(
+        super().__init__(
             problem=problem, canon_methods=Exotic2Common.CANON_METHODS)
 
     def invert(self, solution, inverse_data):

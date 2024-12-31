@@ -17,7 +17,6 @@ limitations under the License.
 from __future__ import annotations
 
 import operator
-from typing import List
 
 import numpy as np
 import scipy.sparse as sp
@@ -266,7 +265,7 @@ class CoeffExtractor:
 
     def merge_P_list(
             self,
-            P_list: List[TensorRepresentation],
+            P_list: list[TensorRepresentation],
             P_height: int,
             num_params: int,
         ) -> sp.csc_matrix:
@@ -305,7 +304,7 @@ class CoeffExtractor:
 
     def merge_q_list(
         self,
-        q_list: List[sp.spmatrix | np.ndarray],
+        q_list: list[sp.spmatrix | np.ndarray],
         constant: sp.csc_matrix,
         num_params: int,
     ) -> sp.csr_matrix:

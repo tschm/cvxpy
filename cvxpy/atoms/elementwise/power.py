@@ -12,7 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -174,13 +173,13 @@ class power(Elementwise):
 
             self.p_rational, self.w = p, w
             self.approx_error = float(abs(self.p_rational - p))
-        super(power, self).__init__(x)
+        super().__init__(x)
 
     @Elementwise.numpy_numeric
     def numeric(self, values):
         return np.power(values[0], float(self.p.value))
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         if self.p.value == 1:
@@ -255,7 +254,7 @@ class power(Elementwise):
     def is_constant(self) -> bool:
         """Is the expression constant?
         """
-        return (_is_const(self.p) and self.p.value == 0) or super(power, self).is_constant()
+        return (_is_const(self.p) and self.p.value == 0) or super().is_constant()
 
     def is_incr(self, idx) -> bool:
         """Is the composition non-decreasing in argument idx?
@@ -380,7 +379,7 @@ class power(Elementwise):
         grad_vals = float(p)*np.power(values[0], float(p)-1)
         return [power.elemwise_grad_to_diag(grad_vals, rows, cols)]
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         if not isinstance(self._p_orig, cvxtypes.expression()):
@@ -417,6 +416,6 @@ class power(Elementwise):
         return power(args[0], self._p_orig, self.max_denom)
 
     def name(self) -> str:
-        return "%s(%s, %s)" % (self.__class__.__name__,
+        return "{}({}, {})".format(self.__class__.__name__,
                                self.args[0].name(),
                                self.p.value)

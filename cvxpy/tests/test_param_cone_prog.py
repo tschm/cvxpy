@@ -25,11 +25,11 @@ from cvxpy.tests.base_test import BaseTest
 class TestParamConeProg(BaseTest):
     # Overridden method to assume lower accuracy.
     def assertItemsAlmostEqual(self, a, b, places: int = 2) -> None:
-        super(TestParamConeProg, self).assertItemsAlmostEqual(a, b, places=places)
+        super().assertItemsAlmostEqual(a, b, places=places)
 
     # Overridden method to assume lower accuracy.
     def assertAlmostEqual(self, a, b, places: int = 2) -> None:
-        super(TestParamConeProg, self).assertAlmostEqual(a, b, places=places)
+        super().assertAlmostEqual(a, b, places=places)
 
     def test_log_problem(self) -> None:
         # Log in objective.

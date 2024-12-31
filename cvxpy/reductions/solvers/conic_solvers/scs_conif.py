@@ -211,7 +211,7 @@ class SCS(ConicSolver):
         tuple
             (dict of arguments needed for the solver, inverse data)
         """
-        return super(SCS, self).apply(problem)
+        return super().apply(problem)
 
     @staticmethod
     def extract_dual_value(result_vec, offset, constraint):

@@ -92,7 +92,7 @@ class ConeDims:
         self.p3d = p3d
 
     def __repr__(self) -> str:
-        return "(zero: {0}, nonneg: {1}, exp: {2}, soc: {3}, psd: {4}, p3d: {5})".format(
+        return "(zero: {}, nonneg: {}, exp: {}, soc: {}, psd: {}, p3d: {})".format(
             self.zero, self.nonneg, self.exp, self.soc, self.psd, self.p3d)
 
     def __str__(self) -> str:

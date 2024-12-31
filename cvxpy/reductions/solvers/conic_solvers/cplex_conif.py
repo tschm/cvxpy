@@ -49,7 +49,7 @@ def set_parameters(model, solver_opts) -> None:
                 parameter.set(value)
             except AttributeError:
                 raise ValueError(
-                    "invalid CPLEX parameter, value pair ({0}, {1})".format(
+                    "invalid CPLEX parameter, value pair ({}, {})".format(
                         param, value))
         kwargs.remove("cplex_params")
     if "cplex_filename" in kwargs:
@@ -58,7 +58,7 @@ def set_parameters(model, solver_opts) -> None:
             model.write(filename)
         kwargs.remove("cplex_filename")
     if kwargs:
-        raise ValueError("invalid keyword-argument '{0}'".format(kwargs[0]))
+        raise ValueError(f"invalid keyword-argument '{kwargs[0]}'")
 
 
 def hide_solver_output(model) -> None:
@@ -119,7 +119,7 @@ def _handle_solve_status(model, solstat):
                      status.optimal_relaxed_quad,
                      status.MIP_optimal_relaxed_quad):
         raise AssertionError(
-            "feasopt status encountered: {0}".format(solstat))
+            f"feasopt status encountered: {solstat}")
     elif solstat in (status.conflict_feasible,
                      status.conflict_minimal,
                      status.conflict_abort_contradiction,
@@ -131,7 +131,7 @@ def _handle_solve_status(model, solstat):
                      status.conflict_abort_memory_limit,
                      status.conflict_abort_user):
         raise AssertionError(
-            "conflict refiner status encountered: {0}".format(solstat))
+            f"conflict refiner status encountered: {solstat}")
     elif solstat == status.relaxation_unbounded:
         return status.relaxation_unbounded
     elif solstat in (status.feasible,
@@ -242,7 +242,7 @@ class CPLEX(ConicSolver):
         tuple
             (dict of arguments needed for the solver, inverse data)
         """
-        data, inv_data = super(CPLEX, self).apply(problem)
+        data, inv_data = super().apply(problem)
         variables = problem.x
         data[s.BOOL_IDX] = [int(t[0]) for t in variables.boolean_idx]
         data[s.INT_IDX] = [int(t[0]) for t in variables.integer_idx]

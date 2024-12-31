@@ -14,7 +14,7 @@ limitations under the License.
 """
 
 from functools import reduce
-from typing import Any, List, Tuple
+from typing import Any
 
 import numpy as np
 
@@ -28,7 +28,7 @@ class minimum(Elementwise):
     def __init__(self, arg1, arg2, *args) -> None:
         """Requires at least 2 arguments.
         """
-        super(minimum, self).__init__(arg1, arg2, *args)
+        super().__init__(arg1, arg2, *args)
 
     @Elementwise.numpy_numeric
     def numeric(self, values):
@@ -36,7 +36,7 @@ class minimum(Elementwise):
         """
         return reduce(np.minimum, values)
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         is_pos = all(arg.is_nonneg() for arg in self.args)
@@ -78,7 +78,7 @@ class minimum(Elementwise):
         """
         return all(arg.is_pwl() for arg in self.args)
 
-    def _grad(self, values) -> List[Any]:
+    def _grad(self, values) -> list[Any]:
         """Gives the (sub/super)gradient of the atom w.r.t. each argument.
 
         Matrix expressions are vectorized, so the gradient is a matrix.

@@ -70,10 +70,10 @@ class FiniteSet(Constraint):
         self.expre = expre
         self.vec = vec
         self._ineq_form = ineq_form
-        super(FiniteSet, self).__init__([expre, vec], constr_id)
+        super().__init__([expre, vec], constr_id)
 
     def name(self) -> str:
-        return "FiniteSet(%s, %s)" % (self.args[0], self.args[1])
+        return f"FiniteSet({self.args[0]}, {self.args[1]})"
 
     def get_data(self):
         return [self._ineq_form, self.id]

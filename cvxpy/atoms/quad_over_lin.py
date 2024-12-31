@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Tuple
 
 import numpy as np
 import scipy as scipy
@@ -33,7 +32,7 @@ class quad_over_lin(Atom):
     _allow_complex = True
 
     def __init__(self, x, y) -> None:
-        super(quad_over_lin, self).__init__(x, y)
+        super().__init__(x, y)
 
     @Atom.numpy_numeric
     def numeric(self, values):
@@ -43,7 +42,7 @@ class quad_over_lin(Atom):
             return (np.square(values[0].imag) + np.square(values[0].real)).sum()/values[1]
         return np.square(values[0]).sum()/values[1]
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         # y > 0.
@@ -77,12 +76,12 @@ class quad_over_lin(Atom):
             DX = scipy.sparse.csc_matrix(DX)
             return [DX, Dy]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return tuple()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Always positive.
@@ -129,7 +128,7 @@ class quad_over_lin(Atom):
             raise ValueError("The second argument to quad_over_lin must be a scalar.")
         if self.args[1].is_complex():
             raise ValueError("The second argument to quad_over_lin cannot be complex.")
-        super(quad_over_lin, self).validate_arguments()
+        super().validate_arguments()
 
     def is_quadratic(self) -> bool:
         """Quadratic if x is affine and y is constant.

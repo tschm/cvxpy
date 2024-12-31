@@ -64,6 +64,6 @@ while not nodes.empty():
             L_val[idx] = U_val[idx] = i
             nodes.put((lower_bound, i, L_val.copy(), U_val.copy(), idx + 1))
 
-print("Nodes visited: %s out of %s" % (visited, 2**(n+1)-1))
+print(f"Nodes visited: {visited} out of {2**(n+1)-1}")
 print("Optimal solution:", best_solution)
 print(best_x)

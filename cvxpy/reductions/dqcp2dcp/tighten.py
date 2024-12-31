@@ -17,7 +17,7 @@ import numpy as np
 
 from cvxpy.atoms import ceil, floor, length
 
-integer_valued_fns = set([ceil, floor, length])
+integer_valued_fns = {ceil, floor, length}
 
 
 # Tuples fns such that that t infeasible implies fns[0](t) infeasible

@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple
 
 import numpy as np
 from scipy import linalg as LA
@@ -49,10 +48,10 @@ class von_neumann_entr(Atom):
         A PSD matrix
     """
 
-    def __init__(self, X, quad_approx: Tuple[int, int] = ()) -> None:
+    def __init__(self, X, quad_approx: tuple[int, int] = ()) -> None:
         # TODO: add a check that N is symmetric/Hermitian.
         self.quad_approx = quad_approx
-        super(von_neumann_entr, self).__init__(X)
+        super().__init__(X)
 
     def numeric(self, values):
         N = values[0]
@@ -70,7 +69,7 @@ class von_neumann_entr(Atom):
             if N.ndim != 2 or N.shape[0] != N.shape[1]:
                 raise ValueError('Argument must be a square matrix.')
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (False, False)
@@ -80,7 +79,7 @@ class von_neumann_entr(Atom):
         """
         return False
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape of the expression.
         """
         return tuple()
@@ -121,7 +120,7 @@ class von_neumann_entr(Atom):
         #  compare to log_det atom.
         raise ValueError()
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         return [self.args[0] >> 0]

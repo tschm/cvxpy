@@ -15,7 +15,8 @@ limitations under the License.
 """
 from __future__ import annotations
 
-from typing import Any, Iterable, Optional, Tuple
+from collections.abc import Iterable
+from typing import Any
 
 import scipy.sparse as sp
 
@@ -48,7 +49,7 @@ class Variable(Leaf):
         self._value = None
         self.delta = None
         self.gradient = None
-        super(Variable, self).__init__(shape, **kwargs)
+        super().__init__(shape, **kwargs)
 
     def name(self) -> str:
         """The name of the variable."""
@@ -58,7 +59,7 @@ class Variable(Leaf):
         return False
 
     @property
-    def grad(self) -> Optional[dict[Variable, sp.csc_matrix]]:
+    def grad(self) -> dict[Variable, sp.csc_matrix] | None:
         """Gives the (sub/super)gradient of the expression w.r.t. each variable.
 
         Matrix expressions are vectorized, so the gradient is a matrix.
@@ -70,7 +71,7 @@ class Variable(Leaf):
         """Returns itself as a variable."""
         return [self]
 
-    def canonicalize(self) -> Tuple[Expression, list[Constraint]]:
+    def canonicalize(self) -> tuple[Expression, list[Constraint]]:
         """Returns the graph implementation of the object."""
         obj = lu.create_var(self.shape, self.id)
         return (obj, [])
@@ -83,7 +84,7 @@ class Variable(Leaf):
         assert variable.attributes
         self._variable_with_attributes = variable
 
-    def variable_of_provenance(self) -> Optional[Variable]:
+    def variable_of_provenance(self) -> Variable | None:
         """Returns a variable with attributes from which this variable was generated."""
         return self._variable_with_attributes
 

@@ -57,7 +57,7 @@ class ECOS_BB(ECOS):
         return s.ECOS_BB
 
     def apply(self, problem):
-        data, inv_data = super(ECOS_BB, self).apply(problem)
+        data, inv_data = super().apply(problem)
         # Because the problem variable is single dimensional, every
         # boolean/integer index has length one.
         var = problem.x

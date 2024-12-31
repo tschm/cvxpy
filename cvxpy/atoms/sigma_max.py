@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -28,7 +27,7 @@ class sigma_max(Atom):
     _allow_complex = True
 
     def __init__(self, A) -> None:
-        super(sigma_max, self).__init__(A)
+        super().__init__(A)
 
     @Atom.numpy_numeric
     def numeric(self, values):
@@ -54,12 +53,12 @@ class sigma_max(Atom):
         D = U.dot(np.diag(ds)).dot(V)
         return [sp.csc_matrix(D.ravel(order='F')).T]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return tuple()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Always positive.

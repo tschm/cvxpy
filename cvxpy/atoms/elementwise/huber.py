@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 import scipy.special
@@ -47,7 +46,7 @@ class huber(Elementwise):
 
     def __init__(self, x, M: int = 1) -> None:
         self.M = self.cast_to_const(M)
-        super(huber, self).__init__(x)
+        super().__init__(x)
 
     def parameters(self):
         """If M is a Parameter, include it in the list of Parameters"""
@@ -58,7 +57,7 @@ class huber(Elementwise):
         """Returns the huber function applied elementwise to x."""
         return 2 * scipy.special.huber(self.M.value, values[0])
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression."""
         # Always positive.
         return (True, False)
@@ -95,7 +94,7 @@ class huber(Elementwise):
         """Checks that M >= 0 and is a constant or Parameter."""
         if not (self.M.is_nonneg() and self.M.is_scalar() and self.M.is_constant()):
             raise ValueError("M must be a non-negative scalar constant or Parameter.")
-        super(huber, self).validate_arguments()
+        super().validate_arguments()
 
     def _grad(self, values):
         """Gives the (sub/super)gradient of the atom w.r.t. each argument.

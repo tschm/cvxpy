@@ -15,7 +15,8 @@ limitations under the License.
 """
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Iterable, Optional
+from collections.abc import Iterable
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from cvxpy import Constant, Parameter, Variable
@@ -108,7 +109,7 @@ class Leaf(expression.Expression):
                              "are not supported.")
         for d in shape:
             if not isinstance(d, numbers.Integral) or d <= 0:
-                raise ValueError("Invalid dimensions %s." % (shape,))
+                raise ValueError(f"Invalid dimensions {shape}.")
         shape = tuple(shape)
         self._shape = shape
 
@@ -185,7 +186,7 @@ class Leaf(expression.Expression):
         attr_str = ""
         for attr, val in self.attributes.items():
             if attr != 'real' and val:
-                attr_str += ", %s=%s" % (attr, val)
+                attr_str += f", {attr}={val}"
         return attr_str
 
     def copy(self, args=None, id_objects=None):
@@ -435,7 +436,7 @@ class Leaf(expression.Expression):
         self._value = val
 
     @property
-    def value(self) -> Optional[np.ndarray]:
+    def value(self) -> np.ndarray | None:
         """The numeric value of the expression."""
         return self._value
 
@@ -516,7 +517,7 @@ class Leaf(expression.Expression):
                 else:
                     attr_str = ([k for (k, v) in self.attributes.items() if v] + ['real'])[0]
                 raise ValueError(
-                    "%s value must be %s." % (self.__class__.__name__, attr_str)
+                    f"{self.__class__.__name__} value must be {attr_str}."
                 )
         return val
 

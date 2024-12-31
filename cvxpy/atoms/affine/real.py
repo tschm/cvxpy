@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Tuple
 
 import numpy as np
 
@@ -24,7 +23,7 @@ class real(AffAtom):
     """Extracts the real part of an expression.
     """
     def __init__(self, expr) -> None:
-        super(real, self).__init__(expr)
+        super().__init__(expr)
 
     def numeric(self, values):
         """Convert the vector constant into a diagonal matrix.
@@ -32,7 +31,7 @@ class real(AffAtom):
         # Convert values to 1D.
         return np.real(values[0])
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape of the expression.
         """
         return self.args[0].shape

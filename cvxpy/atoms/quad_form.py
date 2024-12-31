@@ -15,7 +15,6 @@ limitations under the License.
 """
 
 import warnings
-from typing import Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -37,7 +36,7 @@ class QuadForm(Atom):
 
     def __init__(self, x, P) -> None:
         """Atom representing :math:`x^T P x`."""
-        super(QuadForm, self).__init__(x, P)
+        super().__init__(x, P)
 
     def numeric(self, values):
         prod = values[1].dot(values[0])
@@ -48,14 +47,14 @@ class QuadForm(Atom):
         return np.real(quad)
 
     def validate_arguments(self) -> None:
-        super(QuadForm, self).validate_arguments()
+        super().validate_arguments()
         n = self.args[1].shape[0]
         if self.args[1].shape[1] != n or self.args[0].shape not in [(n, 1), (n,)]:
             raise ValueError("Invalid dimensions for arguments.")
         if not self.args[1].is_hermitian():
             raise ValueError("Quadratic form matrices must be symmetric/Hermitian.")
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (self.is_atom_convex(), self.is_atom_concave())
@@ -110,7 +109,7 @@ class QuadForm(Atom):
         return False
 
     def name(self) -> str:
-        return "%s(%s, %s)" % (self.__class__.__name__,
+        return "{}({}, {})".format(self.__class__.__name__,
                                self.args[0],
                                self.args[1])
 
@@ -120,7 +119,7 @@ class QuadForm(Atom):
         D = (P + np.conj(P.T)) @ x
         return [sp.csc_matrix(D.ravel(order="F")).T]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         return tuple()
 
 
@@ -130,7 +129,7 @@ class SymbolicQuadForm(Atom):
     """
     def __init__(self, x, P, expr) -> None:
         self.original_expression = expr
-        super(SymbolicQuadForm, self).__init__(x, P)
+        super().__init__(x, P)
         self.P = self.args[1]
 
     def get_data(self):
@@ -151,10 +150,10 @@ class SymbolicQuadForm(Atom):
     def is_incr(self, idx) -> bool:
         return self.original_expression.is_incr(idx)
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         return self.original_expression.shape_from_args()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         return self.original_expression.sign_from_args()
 
     def is_quadratic(self) -> bool:

@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 
@@ -51,7 +50,7 @@ class gmatmul(Atom):
         # an argument. This prevents parametrized exponents from being replaced
         # with their logs in Dgp2Dcp.
         self.A = Atom.cast_to_const(A)
-        super(gmatmul, self).__init__(X)
+        super().__init__(X)
 
     def numeric(self, values):
         """Geometric matrix multiplication.
@@ -60,14 +59,14 @@ class gmatmul(Atom):
         return np.exp(self.A.value @ logX)
 
     def name(self) -> str:
-        return "%s(%s, %s)" % (self.__class__.__name__,
+        return "{}({}, {})".format(self.__class__.__name__,
                                self.A,
                                self.args[0])
 
     def validate_arguments(self) -> None:
         """Raises an error if the arguments are invalid.
         """
-        super(gmatmul, self).validate_arguments()
+        super().validate_arguments()
         if not self.A.is_constant():
             raise ValueError(
                 "gmatmul(A, X) requires that A be constant."
@@ -81,7 +80,7 @@ class gmatmul(Atom):
                 "gmatmul(A, X) requires that X be positive."
             )
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return u.shape.mul_shapes(self.A.shape, self.args[0].shape)
@@ -91,7 +90,7 @@ class gmatmul(Atom):
         """
         return [self.A]
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (True, False)

@@ -75,7 +75,7 @@ class HIGHS(ConicSolver):
     def apply(self, problem):
         """Returns a new problem and data for inverting the new solution."""
 
-        data, inv_data = super(HIGHS, self).apply(problem)
+        data, inv_data = super().apply(problem)
         variables = problem.x
         data[s.BOOL_IDX] = [int(t[0]) for t in variables.boolean_idx]
         data[s.INT_IDX] = [int(t[0]) for t in variables.integer_idx]

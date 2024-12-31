@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple
 
 import numpy as np
 from scipy import linalg as LA
@@ -33,10 +32,10 @@ class quantum_rel_entr(Atom):
         A PSD matrix
     """
 
-    def __init__(self, X, Y, quad_approx: Tuple[int, int] = (3, 3)) -> None:
+    def __init__(self, X, Y, quad_approx: tuple[int, int] = (3, 3)) -> None:
         # TODO: add a check that N is symmetric/Hermitian.
         self.quad_approx = quad_approx
-        super(quantum_rel_entr, self).__init__(X, Y)
+        super().__init__(X, Y)
 
     def numeric(self, values):
         X, Y = values
@@ -63,7 +62,7 @@ class quantum_rel_entr(Atom):
         if not (self.args[0].is_hermitian() and self.args[1].is_hermitian()):
             raise ValueError('Arguments must be Hermitian')
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (False, False)
@@ -73,7 +72,7 @@ class quantum_rel_entr(Atom):
         """
         return True
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape of the expression.
         """
         return tuple()
@@ -109,7 +108,7 @@ class quantum_rel_entr(Atom):
         """
         raise NotImplementedError()
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         return [self.args[0] >> 0, self.args[1] >> 0]

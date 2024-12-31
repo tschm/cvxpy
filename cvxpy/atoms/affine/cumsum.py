@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -61,7 +60,7 @@ class cumsum(AffAtom, AxisAtom):
         The axis to sum across if 2D.
     """
     def __init__(self, expr: Expression, axis: int = 0) -> None:
-        super(cumsum, self).__init__(expr, axis)
+        super().__init__(expr, axis)
 
     @AffAtom.numpy_numeric
     def numeric(self, values):
@@ -70,7 +69,7 @@ class cumsum(AffAtom, AxisAtom):
         """
         return np.cumsum(values[0], axis=self.axis)
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """The same as the input."""
         return self.args[0].shape
 
@@ -99,8 +98,8 @@ class cumsum(AffAtom, AxisAtom):
         return [self.axis]
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Cumulative sum via difference matrix.
 
         Parameters

@@ -28,7 +28,7 @@ class Boolean(Variable):
         self._UB = Parameter(rows, cols)
         self._UB.value = cvxopt.matrix(1,(rows, cols), tc='d')
         self._fix_values = cvxopt.matrix(False,(rows, cols))
-        super(Boolean, self).__init__(rows, cols, *args, **kwargs)
+        super().__init__(rows, cols, *args, **kwargs)
 
     def round(self):
         self.LB = cvxopt.matrix(self._rounded, self.size)

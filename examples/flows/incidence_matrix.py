@@ -33,7 +33,7 @@ edges = data[EDGES_KEY]
 E = 2 * len(edges)
 A = cp.Parameter((node_count, E + 2))
 A.value = np.zeros((node_count, E + 2))
-c = cp.Parameter((E))
+c = cp.Parameter(E)
 c.value = np.full((E), 1000)
 for i, (n1, n2, capacity) in enumerate(edges):
     A.value[n1, 2 * i] = -1

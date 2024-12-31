@@ -24,9 +24,9 @@ from cvxpy.atoms.affine.unary_operators import NegExpression
 # these atoms are always invertible. others (like AddExpression, DivExpression,
 # Sum, and cumsum) are only invertible in special cases, checked in the
 # `invertible` function.
-INVERTIBLE = set(
-    [atoms.ceil, atoms.floor, NegExpression, atoms.exp, atoms.log, atoms.log1p,
-     atoms.logistic, atoms.power, atoms.abs])
+INVERTIBLE = {
+    atoms.ceil, atoms.floor, NegExpression, atoms.exp, atoms.log, atoms.log1p,
+     atoms.logistic, atoms.power, atoms.abs}
 
 
 # Inverses are extended-value functions

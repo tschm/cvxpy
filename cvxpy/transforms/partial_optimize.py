@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import cvxpy.settings as s
 import cvxpy.utilities as u
@@ -28,8 +28,8 @@ from cvxpy.problems.problem import Problem
 
 def partial_optimize(
     prob: Problem,
-    opt_vars: Optional[List[Variable]] = None,
-    dont_opt_vars: Optional[List[Variable]] = None,
+    opt_vars: Optional[list[Variable]] = None,
+    dont_opt_vars: Optional[list[Variable]] = None,
     solver=None,
     **kwargs
 ) -> "PartialProblem":
@@ -87,8 +87,8 @@ def partial_optimize(
         for var in prob.variables():
             if id(var) not in ids:
                 raise ValueError(
-                    ("If opt_vars and new_opt_vars are both specified, "
-                     "they must contain all variables in the problem.")
+                    "If opt_vars and new_opt_vars are both specified, "
+                     "they must contain all variables in the problem."
                 )
 
     # Replace the opt_vars in prob with new variables.
@@ -113,14 +113,14 @@ class PartialProblem(Expression):
     """
 
     def __init__(
-            self, prob: Problem, opt_vars: List[Variable],
-            dont_opt_vars: List[Variable], solver, **kwargs) -> None:
+            self, prob: Problem, opt_vars: list[Variable],
+            dont_opt_vars: list[Variable], solver, **kwargs) -> None:
         self.opt_vars = opt_vars
         self.dont_opt_vars = dont_opt_vars
         self.solver = solver
         self.args = [prob]
         self._solve_kwargs = kwargs
-        super(PartialProblem, self).__init__()
+        super().__init__()
 
     def get_data(self):
         """Returns info needed to reconstruct the expression besides the args.
@@ -183,7 +183,7 @@ class PartialProblem(Expression):
         return False
 
     @property
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         """Returns the (row, col) dimensions of the expression.
         """
         return tuple()
@@ -193,7 +193,7 @@ class PartialProblem(Expression):
         """
         return f"PartialProblem({self.args[0]})"
 
-    def variables(self) -> List[Variable]:
+    def variables(self) -> list[Variable]:
         """Returns the variables in the problem.
         """
         return self.args[0].variables()
@@ -203,7 +203,7 @@ class PartialProblem(Expression):
         """
         return self.args[0].parameters()
 
-    def constants(self) -> List[Constant]:
+    def constants(self) -> list[Constant]:
         """Returns the constants in the problem.
         """
         return self.args[0].constants()

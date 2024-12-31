@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import numpy as np
 from scipy.sparse import csc_matrix
@@ -31,7 +31,7 @@ class kl_div(Elementwise):
     """
 
     def __init__(self, x, y) -> None:
-        super(kl_div, self).__init__(x, y)
+        super().__init__(x, y)
 
     @Elementwise.numpy_numeric
     def numeric(self, values):
@@ -39,7 +39,7 @@ class kl_div(Elementwise):
         y = values[1]
         return kl_div_scipy(x, y)
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Always positive.
@@ -65,7 +65,7 @@ class kl_div(Elementwise):
         """
         return False
 
-    def _grad(self, values) -> List[Optional[csc_matrix]]:
+    def _grad(self, values) -> list[Optional[csc_matrix]]:
         """Gives the (sub/super)gradient of the atom w.r.t. each argument.
 
         Matrix expressions are vectorized, so the gradient is a matrix.
@@ -90,7 +90,7 @@ class kl_div(Elementwise):
                                                            rows, cols)]
             return grad_list
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         return [self.args[0] >= 0, self.args[1] >= 0]

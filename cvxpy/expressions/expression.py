@@ -17,7 +17,7 @@ limitations under the License.
 import abc
 import warnings
 from functools import wraps
-from typing import List, Literal, Tuple
+from typing import Literal
 
 import numpy as np
 
@@ -165,7 +165,7 @@ class Expression(u.Canonical):
     def __repr__(self) -> str:
         """Returns a string with information about the expression.
         """
-        return "Expression(%s, %s, %s)" % (self.curvature,
+        return "Expression({}, {}, {})".format(self.curvature,
                                            self.sign,
                                            self.shape)
 
@@ -182,7 +182,7 @@ class Expression(u.Canonical):
 
     # Curvature properties.
     @property
-    def curvatures(self) -> List[str]:
+    def curvatures(self) -> list[str]:
         """List : Returns a list of the curvatures of the expression."""
         curvatures = [
             (self.is_constant, s.CONSTANT),
@@ -451,7 +451,7 @@ class Expression(u.Canonical):
 
     @property
     @abc.abstractmethod
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         """tuple : The expression dimensions.
         """
         raise NotImplementedError()
@@ -700,7 +700,7 @@ class Expression(u.Canonical):
         if (self.is_scalar() or other.is_scalar()) or other.shape == self.shape:
             return cvxtypes.div_expr()(self, other)
         else:
-            raise ValueError("Incompatible shapes for division (%s / %s)" % (
+            raise ValueError("Incompatible shapes for division ({} / {})".format(
                              self.shape, other.shape))
 
     @_cast_other

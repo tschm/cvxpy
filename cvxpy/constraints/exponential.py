@@ -16,7 +16,7 @@ limitations under the License.
 from __future__ import annotations
 
 import warnings
-from typing import List, Tuple, TypeVar
+from typing import TypeVar
 
 import numpy as np
 
@@ -70,13 +70,13 @@ class ExpCone(Cone):
             msg = ("All arguments must have the same shapes. Provided arguments have"
                    "shapes %s" % str((xs, ys, zs)))
             raise ValueError(msg)
-        super(ExpCone, self).__init__(args, constr_id)
+        super().__init__(args, constr_id)
 
     def __str__(self) -> str:
-        return "ExpCone(%s, %s, %s)" % (self.x, self.y, self.z)
+        return f"ExpCone({self.x}, {self.y}, {self.z})"
 
     def __repr__(self) -> str:
-        return "ExpCone(%s, %s, %s)" % (self.x, self.y, self.z)
+        return f"ExpCone({self.x}, {self.y}, {self.z})"
 
     @property
     def residual(self):
@@ -107,7 +107,7 @@ class ExpCone(Cone):
     def as_quad_approx(self, m: int, k: int) -> RelEntrConeQuad:
         return RelEntrConeQuad(self.y, self.z, -self.x, m, k)
 
-    def cone_sizes(self) -> List[int]:
+    def cone_sizes(self) -> list[int]:
         """The dimensions of the exponential cones.
 
         Returns
@@ -132,7 +132,7 @@ class ExpCone(Cone):
         return self.is_dcp()
 
     @property
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         s = (3,) + self.x.shape
         return s
 
@@ -207,7 +207,7 @@ class RelEntrConeQuad(Cone):
             msg = ("All arguments must have the same shapes. Provided arguments have"
                    "shapes %s" % str((xs, ys, zs)))
             raise ValueError(msg)
-        super(RelEntrConeQuad, self).__init__([self.x, self.y, self.z], constr_id)
+        super().__init__([self.x, self.y, self.z], constr_id)
 
     def get_data(self):
         return [self.m, self.k, self.id]
@@ -246,7 +246,7 @@ class RelEntrConeQuad(Cone):
         """
         return self.x.size
 
-    def cone_sizes(self) -> List[int]:
+    def cone_sizes(self) -> list[int]:
         """The dimensions of the exponential cones.
 
         Returns
@@ -271,7 +271,7 @@ class RelEntrConeQuad(Cone):
         return self.is_dcp()
 
     @property
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         s = (3,) + self.x.shape
         return s
 
@@ -337,7 +337,7 @@ class OpRelEntrConeQuad(Cone):
             msg = ("All arguments must have the same shapes. Provided arguments have"
                    "shapes %s" % str((Xs, Ys, Zs)))
             raise ValueError(msg)
-        super(OpRelEntrConeQuad, self).__init__([self.X, self.Y, self.Z], constr_id)
+        super().__init__([self.X, self.Y, self.Z], constr_id)
 
     def get_data(self):
         return [self.m, self.k, self.id]
@@ -365,7 +365,7 @@ class OpRelEntrConeQuad(Cone):
         """
         return self.X.size
 
-    def cone_sizes(self) -> List[int]:
+    def cone_sizes(self) -> list[int]:
         """The dimensions of the exponential cones.
 
         Returns
@@ -390,7 +390,7 @@ class OpRelEntrConeQuad(Cone):
         return self.is_dcp()
 
     @property
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         s = (3,) + self.X.shape
         return s
 

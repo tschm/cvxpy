@@ -22,16 +22,16 @@ SUBST = [
     (r"Int\(" + P_ROW_COL, r"Variable(shape=(\1, \2), integer=True"),
     (r"Parameter\(" + P_ROW_COL, r"Parameter(shape=(\1, \2)"),
     # Interpret 1D variables as 2D; code may depend upon 2D structure
-    (r"Variable\(({0}+)\)".format(TOK), r"Variable(shape=(\1,1))"),
-    (r"NonNegative\(({0}+)\)".format(TOK), r"Variable(shape=(\1,1), nonneg=True)"),
-    (r"Bool\(({0}+)\)".format(TOK), r"Variable(shape=(\1,1), boolean=True)"),
-    (r"Int\(({0}+)\)".format(TOK), r"Variable(shape=(\1,1), integer=True)"),
-    (r"Parameter\(({0}+)\)".format(TOK), r"Parameter(shape=(\1,1))"),
+    (fr"Variable\(({TOK}+)\)", r"Variable(shape=(\1,1))"),
+    (fr"NonNegative\(({TOK}+)\)", r"Variable(shape=(\1,1), nonneg=True)"),
+    (fr"Bool\(({TOK}+)\)", r"Variable(shape=(\1,1), boolean=True)"),
+    (fr"Int\(({TOK}+)\)", r"Variable(shape=(\1,1), integer=True)"),
+    (fr"Parameter\(({TOK}+)\)", r"Parameter(shape=(\1,1))"),
     (r"Parameter\(({0}+), value=({0}+)\)".format(TOK), r"Parameter(shape=(\1,1), value=\2)"),
     # Symmetric and PSD
-    (r"Symmetric\(({0}+)\)".format(TOK), r"Variable(shape=(\1,\1), symmetric=True)"),
-    (r"Semidef\(({0}+)\)".format(TOK), r"Variable(shape=(\1,\1), PSD=True)"),
-    (r"semidefinite\(({0}+)\)".format(TOK), r"Variable(shape=(\1,\1), PSD=True)"),
+    (fr"Symmetric\(({TOK}+)\)", r"Variable(shape=(\1,\1), symmetric=True)"),
+    (fr"Semidef\(({TOK}+)\)", r"Variable(shape=(\1,\1), PSD=True)"),
+    (fr"semidefinite\(({TOK}+)\)", r"Variable(shape=(\1,\1), PSD=True)"),
     # Update atom names
     (r"sum_entries", "sum"),
     (r"mul_elemwise", "multiply"),
@@ -55,7 +55,7 @@ if __name__ == "__main__":
                         help="The output filename.",
                         required=True)
     args = parser.parse_args()
-    with open(args.input_file, 'rU') as f:
+    with open(args.input_file) as f:
         code = f.read()
     for pattern, subst in SUBST:
         code = re.sub(pattern, subst, code)

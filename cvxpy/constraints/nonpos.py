@@ -55,7 +55,7 @@ class NonPos(Constraint):
 
     def __init__(self, expr, constr_id=None) -> None:
         warnings.warn(NonPos.DEPRECATION_MESSAGE, DeprecationWarning)
-        super(NonPos, self).__init__([expr], constr_id)
+        super().__init__([expr], constr_id)
         if not self.args[0].is_real():
             raise ValueError("Input to NonPos must be real.")
 
@@ -114,7 +114,7 @@ class NonNeg(Constraint):
         A unique id for the constraint.
     """
     def __init__(self, expr, constr_id=None) -> None:
-        super(NonNeg, self).__init__([expr], constr_id)
+        super().__init__([expr], constr_id)
         if not self.args[0].is_real():
             raise ValueError("Input to NonNeg must be real.")
 
@@ -182,17 +182,17 @@ class Inequality(Constraint):
         self._expr = lhs - rhs
         if self._expr.is_complex():
             raise ValueError("Inequality constraints cannot be complex.")
-        super(Inequality, self).__init__([lhs, rhs], constr_id)
+        super().__init__([lhs, rhs], constr_id)
 
     def _construct_dual_variables(self, args) -> None:
-        super(Inequality, self)._construct_dual_variables([self._expr])
+        super()._construct_dual_variables([self._expr])
 
     @property
     def expr(self):
         return self._expr
 
     def name(self) -> str:
-        return "%s <= %s" % (self.args[0], self.args[1])
+        return f"{self.args[0]} <= {self.args[1]}"
 
     @property
     def shape(self):

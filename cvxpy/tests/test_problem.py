@@ -69,16 +69,16 @@ class TestProblem(BaseTest):
         """
         obj = cp.Minimize(self.a)
         prob = Problem(obj)
-        self.assertEqual(repr(prob), "Problem(%s, %s)" % (repr(obj), repr([])))
+        self.assertEqual(repr(prob), f"Problem({repr(obj)}, {repr([])})")
         constraints = [self.x*2 == self.x, self.x == 0]
         prob = Problem(obj, constraints)
-        self.assertEqual(repr(prob), "Problem(%s, %s)" % (repr(obj), repr(constraints)))
+        self.assertEqual(repr(prob), f"Problem({repr(obj)}, {repr(constraints)})")
 
         # Test str.
         result = (
-            "minimize %(name)s\nsubject to %(name)s == 0\n           %(name)s >= 0" % {
-                "name": self.a.name()
-            }
+            "minimize {name}\nsubject to {name} == 0\n           {name} >= 0".format(
+                name=self.a.name()
+            )
         )
         prob = Problem(cp.Minimize(self.a), [Zero(self.a), NonNeg(self.a)])
         self.assertEqual(str(prob), result)
@@ -1799,7 +1799,7 @@ class TestProblem(BaseTest):
                 x_true = a**(1.0/(p-1))/a.dot(a**(1.0/(p-1)))
 
             x_alg = np.array(x.value).flatten()
-            self.assertTrue(np.allclose(x_alg, x_true, 1e-2), 'p = {}'.format(p))
+            self.assertTrue(np.allclose(x_alg, x_true, 1e-2), f'p = {p}')
             self.assertTrue(np.allclose(prob.value, np.linalg.norm(x_alg, p)))
             self.assertTrue(np.allclose(np.linalg.norm(x_alg, p), cp.pnorm(x_alg, p).value))
 

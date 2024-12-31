@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
@@ -178,7 +178,7 @@ class geo_mean(Atom):
         :math:`\\|p/\\mathbf{1}^T p - w \\|_\\infty`
     """
 
-    def __init__(self, x, p: Optional[List[int]] = None, max_denom: int = 1024) -> None:
+    def __init__(self, x, p: Optional[list[int]] = None, max_denom: int = 1024) -> None:
         """ Implementation details of geo_mean.
 
         Attributes
@@ -221,7 +221,7 @@ class geo_mean(Atom):
             else:
                 x = Expression.cast_to_const(x)[idxs]
             p = p[idxs]
-        super(geo_mean, self).__init__(x)
+        super().__init__(x)
 
         x = self.args[0]
         if x.is_vector():
@@ -261,7 +261,7 @@ class geo_mean(Atom):
             val *= x**float(p)
         return val
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         # No special case when only one non-zero weight.
@@ -290,19 +290,19 @@ class geo_mean(Atom):
             return [sp.csc_matrix(D).T]
 
     def name(self) -> str:
-        return "%s(%s, (%s))" % (self.__class__.__name__,
+        return "{}({}, ({}))".format(self.__class__.__name__,
                                  self.args[0].name(),
                                  ', '.join(str(v) for v in self.w))
 
     def pretty_tree(self) -> None:
         print(prettydict(self.tree))
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return tuple()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Always positive.

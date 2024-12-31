@@ -24,7 +24,7 @@ import cvxpy.interface as intf
 
 class NonCvxVariable(cvxpy.Variable):
     def __init__(self, *args, **kwargs) -> None:
-        super(NonCvxVariable, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.noncvx = True
         self.z = cvxpy.Parameter(*self.size)
         self.init_z()
@@ -38,8 +38,8 @@ class NonCvxVariable(cvxpy.Variable):
     # Verify that the matrix has the same dimensions as the variable.
     def validate_matrix(self, matrix):
         if self.size != intf.shape(matrix):
-            raise Exception(("The argument's dimensions must match "
-                             "the variable's dimensions."))
+            raise Exception("The argument's dimensions must match "
+                             "the variable's dimensions.")
 
     # Wrapper to validate matrix.
     def round(self, matrix):

@@ -104,4 +104,4 @@ if __name__ == "__main__":
     # Show how the flow for each commodity.
     for i, s in enumerate(sinks):
         accumulation = sum(f.value[i] for f in s.edge_flows)
-        print("Accumulation of commodity %s = %s" % (i, accumulation))
+        print(f"Accumulation of commodity {i} = {accumulation}")

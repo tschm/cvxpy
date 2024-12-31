@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -26,14 +25,14 @@ class ceil(Elementwise):
     """Elementwise ceiling."""
 
     def __init__(self, x) -> None:
-        return super(ceil, self).__init__(x)
+        return super().__init__(x)
 
     @Elementwise.numpy_numeric
     def numeric(self, values):
         decimals = int(np.abs(np.log10(s.ATOM_EVAL_TOL)))
         return np.ceil(np.around(values[0], decimals=decimals))
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         if self.args[0].is_nonneg() and self.args[0].is_nonpos():
@@ -103,13 +102,13 @@ class floor(Elementwise):
     """Elementwise floor."""
 
     def __init__(self, x) -> None:
-        return super(floor, self).__init__(x)
+        return super().__init__(x)
 
     @Elementwise.numpy_numeric
     def numeric(self, values):
         return np.floor(values[0])
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         if self.args[0].is_nonneg() and self.args[0].is_nonpos():

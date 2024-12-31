@@ -358,9 +358,9 @@ def lp_7() -> SolverTestHelper:
     This test will not pass on CVXOPT (as of v1.3.1) and on SDPA without GMP support.
     """
     n = 50
-    a = cp.Variable((n+1))
-    delta = cp.Variable((n))
-    b = cp.Variable((n+1))
+    a = cp.Variable(n+1)
+    delta = cp.Variable(n)
+    b = cp.Variable(n+1)
     objective = cp.Minimize(cp.sum(cp.pos(delta)))
     constraints = [
         a[1:] - a[:-1] == delta,
@@ -707,7 +707,7 @@ def pcp_2() -> SolverTestHelper:
     hypos = cp.Variable(shape=(2,))
     objective = cp.Minimize(-cp.sum(hypos) + x[0])
     arg1 = cp.hstack([x[0], x[2]])
-    arg2 = cp.hstack(([x[1], 1.0]))
+    arg2 = cp.hstack([x[1], 1.0])
     pc_con = cp.constraints.PowCone3D(arg1, arg2, hypos, [0.2, 0.4])
     expect_pc_con = [np.array([1.48466366, 0.24233184]),
                      np.array([0.48466367, 0.83801333]),
@@ -1046,7 +1046,7 @@ def mi_pcp_0() -> SolverTestHelper:
     q = cp.Variable(integer=True)
     objective = cp.Minimize(-cp.sum(hypos) + x[0])
     arg1 = cp.hstack([x[0], x[2]])
-    arg2 = cp.hstack(([x[1], q]))
+    arg2 = cp.hstack([x[1], q])
     pc_con = cp.constraints.PowCone3D(arg1, arg2, hypos, [0.2, 0.4])
     con_pairs = [
         (x[0] + x[1] + 0.5 * x[2] == 2, None),

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import numpy as np
 
@@ -55,7 +55,7 @@ class Concatenate(AffAtom):
     def numeric(self, values):
         return np.concatenate(values, axis=self.axis)
 
-    def get_data(self) -> List[Optional[int]]:
+    def get_data(self) -> list[Optional[int]]:
         return [self.axis]
 
     def validate_arguments(self) -> None:
@@ -66,7 +66,7 @@ class Concatenate(AffAtom):
             axis=self.axis,
         )
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         return np.concatenate(
             [np.empty(arg.shape, dtype=np.dtype([])) for arg in self.args],
             axis=self.axis,
@@ -75,9 +75,9 @@ class Concatenate(AffAtom):
     def graph_implementation(
         self,
         arg_objs,
-        shape: Tuple[int, ...],
+        shape: tuple[int, ...],
         data=None,
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Concatenate the expressions along an existing axis.
 
         Parameters

@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 
@@ -66,7 +65,7 @@ class eye_minus_inv(Atom):
         A positive square matrix.
     """
     def __init__(self, X) -> None:
-        super(eye_minus_inv, self).__init__(X)
+        super().__init__(X)
         if len(X.shape) != 2 or X.shape[0] != X.shape[1]:
             raise ValueError("The argument to `eye_minus_inv` must be a "
                              "square matrix, received ", X)
@@ -76,14 +75,14 @@ class eye_minus_inv(Atom):
         return np.linalg.inv(np.eye(self.args[0].shape[0]) - values[0])
 
     def name(self) -> str:
-        return "%s(%s)" % (self.__class__.__name__, self.args[0])
+        return f"{self.__class__.__name__}({self.args[0]})"
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return self.args[0].shape
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (True, False)

@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 import logging
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from numpy import array, ndarray
 from scipy.sparse import csr_matrix
@@ -57,7 +57,7 @@ class GLOP(ConicSolver):
                                'Please open a feature request on cvxpy to '
                                'enable support for this version.')
 
-    def apply(self, problem: ParamConeProg) -> Tuple[Dict, Dict]:
+    def apply(self, problem: ParamConeProg) -> tuple[dict, dict]:
         """Returns a new problem and data for inverting the new solution."""
         from ortools.linear_solver import linear_solver_pb2
 
@@ -109,8 +109,8 @@ class GLOP(ConicSolver):
         data[self.MODEL_PROTO] = model
         return data, inv_data
 
-    def invert(self, solution: Dict[str, Any],
-               inverse_data: Dict[str, Any]) -> Solution:
+    def invert(self, solution: dict[str, Any],
+               inverse_data: dict[str, Any]) -> Solution:
         """Returns the solution to the original problem."""
         status = solution["status"]
 
@@ -130,11 +130,11 @@ class GLOP(ConicSolver):
 
     def solve_via_data(
             self,
-            data: Dict[str, Any],
+            data: dict[str, Any],
             warm_start: bool,
             verbose: bool,
-            solver_opts: Dict[str, Any],
-            solver_cache: Dict = None,
+            solver_opts: dict[str, Any],
+            solver_cache: dict = None,
     ) -> Solution:
         """Returns the result of the call to the solver."""
         from google.protobuf import text_format

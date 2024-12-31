@@ -66,7 +66,7 @@ class GUROBI(QpSolver):
 
         """
         import gurobipy as grb
-        data, inv_data = super(GUROBI, self).apply(problem)
+        data, inv_data = super().apply(problem)
         # Add initial guess.
         data['init_value'] = utilities.stack_vals(problem.variables, grb.GRB.UNDEFINED)
         return data, inv_data

@@ -49,7 +49,7 @@ class Objective(u.Canonical):
                              % self.NAME)
 
     def __repr__(self) -> str:
-        return "%s(%s)" % (self.__class__.__name__, repr(self.args[0]))
+        return f"{self.__class__.__name__}({repr(self.args[0])})"
 
     def __str__(self) -> str:
         return ' '.join([self.NAME, self.args[0].name()])

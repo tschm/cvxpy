@@ -14,8 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import operator as op
+from collections.abc import Iterable
 from functools import reduce
-from typing import Any, Iterable, List, Tuple
+from typing import Any
 
 import cvxpy.lin_ops.lin_op as lo
 import cvxpy.lin_ops.lin_utils as lu
@@ -30,17 +31,17 @@ class AddExpression(AffAtom):
     """
 
     def __init__(self, arg_groups: Iterable[Expression]) -> None:
-        super(AddExpression, self).__init__(*arg_groups)
+        super().__init__(*arg_groups)
         self.args = []
         for group in arg_groups:
             self.args += self.expand_args(group)
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return u.shape.sum_shapes([arg.shape for arg in self.args])
 
-    def expand_args(self, expr: Expression) -> List[Expression]:
+    def expand_args(self, expr: Expression) -> list[Expression]:
         """Helper function to extract the arguments from an AddExpression.
         """
         if isinstance(expr, AddExpression):
@@ -104,8 +105,8 @@ class AddExpression(AffAtom):
         return copy
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Sum the linear expressions.
 
         Parameters

@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 import warnings
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
@@ -63,7 +63,7 @@ class Constant(Leaf):
         self._cached_is_pos = None
         self._skew_symm = None
         self._name = name
-        super(Constant, self).__init__(intf.shape(self.value))
+        super().__init__(intf.shape(self.value))
 
     def name(self) -> str:
         """
@@ -79,7 +79,7 @@ class Constant(Leaf):
         else:
             return self._name
 
-    def constants(self) -> List["Constant"]:
+    def constants(self) -> list["Constant"]:
         """Returns self as a constant.
         """
         return [self]
@@ -117,7 +117,7 @@ class Constant(Leaf):
         return {}
 
     @property
-    def shape(self) -> Tuple[int, ...]:
+    def shape(self) -> tuple[int, ...]:
         """Returns the (row, col) dimensions of the expression.
         """
         return self._shape
@@ -134,7 +134,7 @@ class Constant(Leaf):
     def __repr__(self) -> str:
         """Returns a string with information about the expression.
         """
-        return "Constant(%s, %s, %s)" % (self.curvature,
+        return "Constant({}, {}, {})".format(self.curvature,
                                          self.sign,
                                          self.shape)
 

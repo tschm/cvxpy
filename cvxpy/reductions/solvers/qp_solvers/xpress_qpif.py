@@ -41,7 +41,7 @@ class XPRESS(QpSolver):
         tuple
             (dict of arguments needed for the solver, inverse data)
         """
-        data, inv_data = super(XPRESS, self).apply(problem)
+        data, inv_data = super().apply(problem)
 
         return data, inv_data
 
@@ -134,8 +134,8 @@ class XPRESS(QpSolver):
 
             mqcol1, mqcol2, dqe = [], [], []
 
-        colnames = ['x_{0:09d}'.format(i) for i in range(n_var)]
-        rownames = ['eq_{0:09d}'.format(i) for i in range(n_eq)]
+        colnames = [f'x_{i:09d}' for i in range(n_var)]
+        rownames = [f'eq_{i:09d}' for i in range(n_eq)]
 
         if verbose:
             self.prob_.controls.miplog = 2
@@ -185,7 +185,7 @@ class XPRESS(QpSolver):
 
             mstartIneq = makeMstart(F, n_ineq, 0)  # ifCol=0 --> check rows
 
-            rownames_ineq = ['ineq_{0:09d}'.format(i) for i in range(n_ineq)]
+            rownames_ineq = [f'ineq_{i:09d}' for i in range(n_ineq)]
 
             self.prob_.addrows(  # constraint types
                 qrtype=['L'] * n_ineq,              # inequalities sign

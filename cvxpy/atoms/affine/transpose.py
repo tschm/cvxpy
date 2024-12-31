@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple
 
 import numpy as np
 
@@ -65,7 +64,7 @@ class transpose(AffAtom):
         """
         return self.args[0].is_hermitian()
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the shape of the transpose expression.
         """
         return self.args[0].shape[::-1]
@@ -76,8 +75,8 @@ class transpose(AffAtom):
         return [self.axes]
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Create a new variable equal to the argument transposed.
 
         Parameters

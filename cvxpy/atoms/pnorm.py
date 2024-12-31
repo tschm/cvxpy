@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple, Union
+from typing import Union
 
 import numpy as np
 import scipy.sparse as sp
@@ -133,10 +133,10 @@ class Pnorm(AxisAtom):
             raise ValueError('Use the norm_inf class to instantiate an '
                              'infinity norm.')
         else:
-            raise ValueError('Invalid p: {}'.format(p))
+            raise ValueError(f'Invalid p: {p}')
         self.approx_error = float(abs(self.p - p))
         self.original_p = p
-        super(Pnorm, self).__init__(x, axis=axis, keepdims=keepdims)
+        super().__init__(x, axis=axis, keepdims=keepdims)
 
     def numeric(self, values):
         """Returns the p-norm of x.
@@ -156,7 +156,7 @@ class Pnorm(AxisAtom):
                               keepdims=self.keepdims)
 
     def validate_arguments(self) -> None:
-        super(Pnorm, self).validate_arguments()
+        super().validate_arguments()
         # TODO(akshayka): Why is axis not supported for other norms?
         if self.axis is not None and self.p != 2:
             raise ValueError(
@@ -164,7 +164,7 @@ class Pnorm(AxisAtom):
         if self.p < 1 and self.args[0].is_complex():
             raise ValueError("pnorm(x, p) cannot have x complex for p < 1.")
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         # Always positive.
@@ -209,11 +209,11 @@ class Pnorm(AxisAtom):
         return [self.p, self.axis]
 
     def name(self) -> str:
-        return "%s(%s, %s)" % (self.__class__.__name__,
+        return "{}({}, {})".format(self.__class__.__name__,
                                self.args[0].name(),
                                self.p)
 
-    def _domain(self) -> List[Constraint]:
+    def _domain(self) -> list[Constraint]:
         """Returns constraints describing the domain of the node.
         """
         if self.p < 1 and self.p != 0:

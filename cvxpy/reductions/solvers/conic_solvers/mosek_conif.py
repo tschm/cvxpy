@@ -704,7 +704,7 @@ class MOSEK(ConicSolver):
         return processed_opts
 
     @staticmethod
-    def is_param(param: str | "iparam" | "dparam" | "sparam") -> bool:  # noqa: F821
+    def is_param(param: str | iparam | dparam | sparam) -> bool:  # noqa: F821
         import mosek
         return isinstance(param, (mosek.iparam, mosek.dparam,  mosek.sparam))
 

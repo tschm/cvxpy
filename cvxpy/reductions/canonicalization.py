@@ -49,7 +49,7 @@ class Canonicalization(Reduction):
             A problem owned by this reduction.
     """
     def __init__(self, canon_methods, problem=None) -> None:
-        super(Canonicalization, self).__init__(problem=problem)
+        super().__init__(problem=problem)
         self.canon_methods = canon_methods
 
     def apply(self, problem):

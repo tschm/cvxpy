@@ -37,7 +37,7 @@ class Boolean(NonCvxVariable):
 
     # In the relaxation, we have 0 <= var <= 1.
     def canonicalize(self):
-        obj, constraints = super(Boolean, self).canonicalize()
+        obj, constraints = super().canonicalize()
         one = lu.create_const(np.ones(self.size), self.size)
         constraints += [lu.create_geq(obj),
                         lu.create_leq(obj, one)]

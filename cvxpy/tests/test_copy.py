@@ -97,7 +97,7 @@ def test_constraints_in_problem():
     ]
     shallow_constraints = copy.copy(original_constraints)
 
-    obj = cp.Maximize((x + 2 * y))
+    obj = cp.Maximize(x + 2 * y)
     prob = cp.Problem(obj, shallow_constraints)
     prob.solve()
     assert prob.status == cp.OPTIMAL
@@ -113,7 +113,7 @@ def test_constraints_in_problem():
     x_copied = deep_constraints[0].variables()[0]
     y_copied = deep_constraints[0].variables()[1]
 
-    deep_obj = cp.Maximize((x_copied + 2 * y_copied))
+    deep_obj = cp.Maximize(x_copied + 2 * y_copied)
     prob = cp.Problem(deep_obj, deep_constraints)
     prob.solve()
     # Can get back the same solution by using copied variables

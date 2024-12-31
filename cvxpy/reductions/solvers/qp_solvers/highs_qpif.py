@@ -63,7 +63,7 @@ class HIGHS(QpSolver):
             subject to    L <= A x <= U
 
         """
-        data, inv_data = super(HIGHS, self).apply(problem)
+        data, inv_data = super().apply(problem)
         return data, inv_data
 
     def invert(self, results, inverse_data):

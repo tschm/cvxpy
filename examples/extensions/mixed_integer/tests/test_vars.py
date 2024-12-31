@@ -36,7 +36,7 @@ class TestVars(unittest.TestCase):
             for i in range(len(a)):
                 self.assertAlmostEqual(a[i], b[i])
         except Exception:
-            super(TestVars, self).assertAlmostEqual(a,b,places=3)
+            super().assertAlmostEqual(a,b,places=3)
 
     # Test boolean variable.
     def test_boolean(self):

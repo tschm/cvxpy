@@ -47,7 +47,7 @@ class Constraint(u.Canonical):
         else:
             self.constr_id = constr_id
         self._construct_dual_variables(args)
-        super(Constraint, self).__init__()
+        super().__init__()
 
     def __str__(self):
         """Returns a string showing the mathematical constraint.
@@ -57,7 +57,7 @@ class Constraint(u.Canonical):
     def __repr__(self) -> str:
         """Returns a string with information about the constraint.
         """
-        return "%s(%s)" % (self.__class__.__name__,
+        return "{}({})".format(self.__class__.__name__,
                            repr(self.args[0]))
 
     def _construct_dual_variables(self, args) -> None:
@@ -216,8 +216,8 @@ class Constraint(u.Canonical):
         """Raises an error due to chained constraints.
         """
         raise Exception(
-            ("Cannot evaluate the truth value of a constraint or "
-             "chain constraints, e.g., 1 >= x >= 0.")
+            "Cannot evaluate the truth value of a constraint or "
+             "chain constraints, e.g., 1 >= x >= 0."
         )
 
     def __bool__(self):

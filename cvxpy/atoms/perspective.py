@@ -16,8 +16,6 @@ limitations under the License.
 
 from __future__ import annotations
 
-from typing import Tuple
-
 import numpy as np
 
 from cvxpy.atoms.atom import Atom
@@ -51,7 +49,7 @@ class perspective(Atom):
     def __init__(self, f: Expression, s: Variable, f_recession: Expression = None) -> None:
         self.f = f
         self.f_recession = f_recession
-        super(perspective, self).__init__(s, *f.variables())
+        super().__init__(s, *f.variables())
 
     def validate_arguments(self) -> None:
         assert self.f.size == 1  # dealing only with scalars, for now
@@ -132,7 +130,7 @@ class perspective(Atom):
         """
         return False
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return self.f.shape

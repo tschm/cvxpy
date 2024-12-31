@@ -13,6 +13,14 @@ repos:
         files: ^.*\.py$
       - id: trailing-whitespace
         files: ^.*\.py$
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
+    hooks:
+      - id: pyupgrade
+        args: [--py39-plus]
+        exclude: ^doc/
+
     #  - repo: https://github.com/Lucas-C/pre-commit-hooks
     #    rev: v1.5.5
     #    hooks:

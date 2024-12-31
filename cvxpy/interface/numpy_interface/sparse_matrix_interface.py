@@ -71,7 +71,7 @@ class SparseMatrixInterface(NDArrayInterface):
         """Change the shape of the matrix.
         """
         matrix = matrix.todense()
-        matrix = super(SparseMatrixInterface, self).reshape(matrix, size)
+        matrix = super().reshape(matrix, size)
         return self.const_to_matrix(matrix, convert_scalars=True)
 
     def block_add(self, matrix, block, vert_offset, horiz_offset, rows, cols,

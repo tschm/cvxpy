@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Optional
+from typing import Optional
 
 import numpy as np
 
@@ -50,10 +50,10 @@ class SOC(Cone):
         self.axis = axis
         if len(t.shape) == 0:
             t = t.flatten(order='F')
-        super(SOC, self).__init__([t, X], constr_id)
+        super().__init__([t, X], constr_id)
 
     def __str__(self) -> str:
-        return "SOC(%s, %s)" % (self.args[0], self.args[1])
+        return f"SOC({self.args[0]}, {self.args[1]})"
 
     @property
     def residual(self) -> Optional[np.ndarray]:
@@ -131,7 +131,7 @@ class SOC(Cone):
         cone_size = 1 + self.args[1].shape[self.axis]
         return cone_size * self.num_cones()
 
-    def cone_sizes(self) -> List[int]:
+    def cone_sizes(self) -> list[int]:
         """The dimensions of the second-order cones.
 
         Returns

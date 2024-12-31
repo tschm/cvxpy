@@ -68,7 +68,7 @@ def git_version():
         #   commit history. This gives the commit count since the previous branch
         #   point from the current branch (assuming a full `git clone`, it may be
         #   less if `--depth` was used - commonly the default in CI):
-        prev_version_tag = '^v{}.{}.0'.format(MAJOR, MINOR - 2)
+        prev_version_tag = f'^v{MAJOR}.{MINOR - 2}.0'
         out = _minimal_ext_cmd(['git', 'rev-list', 'HEAD', prev_version_tag,
                                 '--count'])
         COMMIT_COUNT = out.strip().decode('ascii')

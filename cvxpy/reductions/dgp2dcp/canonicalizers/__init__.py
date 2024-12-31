@@ -104,7 +104,7 @@ CANON_METHODS[minimum] = PWL_METHODS[minimum]
 # Canonicalization of DGPs is a stateful procedure, hence the need for a class.
 class DgpCanonMethods(dict):
     def __init__(self, *args, **kwargs) -> None:
-        super(DgpCanonMethods, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._variables = {}
         self._parameters = {}
 

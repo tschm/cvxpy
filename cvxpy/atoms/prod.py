@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 
@@ -41,9 +40,9 @@ class Prod(AxisAtom):
     """
 
     def __init__(self, expr, axis=None, keepdims: bool = False) -> None:
-        super(Prod, self).__init__(expr, axis=axis, keepdims=keepdims)
+        super().__init__(expr, axis=axis, keepdims=keepdims)
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         if self.args[0].is_nonneg():

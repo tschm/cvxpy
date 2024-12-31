@@ -181,12 +181,12 @@ def test_coeff_extractor(coeff_extractor):
     assert np.allclose(coeffs[1]["q"].toarray(), np.zeros((2, 3)))
     P = coeffs[1]["P"]
     assert isinstance(P, TensorRepresentation)
-    assert np.allclose(P.data, np.ones((4)))
+    assert np.allclose(P.data, np.ones(4))
     assert np.allclose(P.row, np.array([0, 1, 0, 1]))
     assert np.allclose(P.col, np.array([0, 1, 0, 1]))
     assert P.shape == (2, 2)
     assert np.allclose(P.parameter_offset, np.array([0, 0, 1, 1]))
-    assert np.allclose(constant.toarray(), np.zeros((3)))
+    assert np.allclose(constant.toarray(), np.zeros(3))
 
 
 def test_issue_2437():

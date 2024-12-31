@@ -41,7 +41,7 @@ class CallbackParam(Parameter):
         """
 
         self._callback = callback
-        super(CallbackParam, self).__init__(shape, **kwargs)
+        super().__init__(shape, **kwargs)
 
     @property
     def value(self):

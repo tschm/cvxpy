@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import operator as op
-from typing import List, Tuple
 
 import cvxpy.lin_ops.lin_op as lo
 import cvxpy.lin_ops.lin_utils as lu
@@ -28,7 +27,7 @@ class UnaryOperator(AffAtom):
     """
 
     def __init__(self, expr) -> None:
-        super(UnaryOperator, self).__init__(expr)
+        super().__init__(expr)
 
     def name(self):
         return self.OP_NAME + self.args[0].name()
@@ -44,12 +43,12 @@ class NegExpression(UnaryOperator):
     OP_NAME = "-"
     OP_FUNC = op.neg
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return self.args[0].shape
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (self.args[0].is_nonpos(), self.args[0].is_nonneg())
@@ -75,8 +74,8 @@ class NegExpression(UnaryOperator):
         return self.args[0].is_hermitian()
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Negate the affine objective.
 
         Parameters

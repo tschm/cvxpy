@@ -27,7 +27,7 @@ import cvxpy
 def antiadjacency(g):
   # form the complementary graph
   n=1+max(g.keys()) # assumes keys start at 0
-  a=dict((i,[]) for i in range(n))
+  a={i:[] for i in range(n)}
   for x in g:
     for y in range(n):
       if y not in g[x]:

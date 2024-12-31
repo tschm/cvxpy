@@ -126,11 +126,11 @@ class TestSCS(BaseTest):
 
     # Overridden method to assume lower accuracy.
     def assertItemsAlmostEqual(self, a, b, places: int = 2) -> None:
-        super(TestSCS, self).assertItemsAlmostEqual(a, b, places=places)
+        super().assertItemsAlmostEqual(a, b, places=places)
 
     # Overridden method to assume lower accuracy.
     def assertAlmostEqual(self, a, b, places: int = 2) -> None:
-        super(TestSCS, self).assertAlmostEqual(a, b, places=places)
+        super().assertAlmostEqual(a, b, places=places)
 
     def test_scs_retry(self) -> None:
         """Test that SCS retry doesn't trigger a crash.

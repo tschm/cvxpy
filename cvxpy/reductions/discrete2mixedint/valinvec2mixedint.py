@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Callable, List, Tuple
+from typing import Callable
 
 import numpy as np
 
@@ -61,7 +61,7 @@ def get_exprval_in_vec_func(ineq_form: bool) -> Callable:
         return exprval_in_vec_eq
 
 
-def finite_set_canon(con: FiniteSet, _args) -> Tuple[Constraint, List]:
+def finite_set_canon(con: FiniteSet, _args) -> tuple[Constraint, list]:
     vec = con.vec.value
     if vec.size == 1:
         # handling for when vec only has a single element
@@ -82,5 +82,5 @@ class Valinvec2mixedint(Canonicalization):
     }
 
     def __init__(self, problem=None) -> None:
-        super(Valinvec2mixedint, self).__init__(problem=problem,
+        super().__init__(problem=problem,
                                                 canon_methods=Valinvec2mixedint.CANON_METHODS)

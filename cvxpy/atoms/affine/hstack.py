@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import List, Tuple
 
 import numpy as np
 
@@ -51,7 +50,7 @@ class Hstack(AffAtom):
         return np.hstack(values)
 
     # The shape is the common width and the sum of the heights.
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         if self.args[0].ndim == 1:
             return (sum(arg.size for arg in self.args),)
         else:
@@ -61,8 +60,8 @@ class Hstack(AffAtom):
     # All arguments must have the same width.
     def validate_arguments(self) -> None:
         model = self.args[0].shape
-        error = ValueError(("All the input dimensions except"
-                            " for axis 1 must match exactly."))
+        error = ValueError("All the input dimensions except"
+                            " for axis 1 must match exactly.")
         for arg in self.args[1:]:
             if len(arg.shape) != len(model):
                 raise error
@@ -72,8 +71,8 @@ class Hstack(AffAtom):
                         raise error
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Stack the expressions horizontally.
 
         Parameters

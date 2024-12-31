@@ -92,7 +92,7 @@ class XPRESS(ConicSolver):
         tuple
             (dict of arguments needed for the solver, inverse data)
         """
-        data, inv_data = super(XPRESS, self).apply(problem)
+        data, inv_data = super().apply(problem)
         variables = problem.x
         data[s.BOOL_IDX] = [int(t[0]) for t in variables.boolean_idx]
         data[s.INT_IDX] = [int(t[0]) for t in variables.integer_idx]
@@ -165,7 +165,7 @@ class XPRESS(ConicSolver):
         # original with auxiliary variables.
 
         varnames = ['x_{0:05d}'. format(i) for i in range(len(c))]
-        linRownames = ['lc_{0:05d}'.format(i) for i in range(len(b))]
+        linRownames = [f'lc_{i:05d}' for i in range(len(b))]
 
         if verbose:
             self.prob_.controls.miplog = 2
@@ -220,11 +220,11 @@ class XPRESS(ConicSolver):
 
             # Create new (cone) variables and add them to the problem
             if Version(xp.__version__) >= Version('9.4.0'):
-                conevar = [self.prob_.addVariable(name='cX{0:d}_{1:d}'.format(iCone, i),
+                conevar = [self.prob_.addVariable(name=f'cX{iCone:d}_{i:d}',
                                                   lb=-xp.infinity if i > 0 else 0)
                                                   for i in range(k)]
             else:
-                conevar = np.array([xp.var(name='cX{0:d}_{1:d}'.format(iCone, i),
+                conevar = np.array([xp.var(name=f'cX{iCone:d}_{i:d}',
                             lb=-xp.infinity if i > 0 else 0)
                     for i in range(k)])
                 self.prob_.addVariable(conevar)
@@ -234,7 +234,7 @@ class XPRESS(ConicSolver):
 
             mstart = makeMstart(A, k, 0)
 
-            trNames = ['linT_qc{0:d}_{1:d}'.format(iCone, i) for i in range(k)]
+            trNames = [f'linT_qc{iCone:d}_{i:d}' for i in range(k)]
 
             # Linear transformation for cone variables <--> original variables
             self.prob_.addrows(['E'] * k,        # qrtypes
@@ -247,7 +247,7 @@ class XPRESS(ConicSolver):
             self.prob_.chgmcoef([initrow + i for i in range(k)],
                                 conevar, [1] * k)
 
-            conename = 'cone_qc{0:d}'.format(iCone)
+            conename = f'cone_qc{iCone:d}'
             # Real cone on the cone variables (if k == 1 there's no
             # need for this constraint as y**2 >= 0 is redundant)
             if k > 1:

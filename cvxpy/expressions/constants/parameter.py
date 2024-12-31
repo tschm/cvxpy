@@ -59,7 +59,7 @@ class Parameter(Leaf):
         self._value = None
         self.delta = None
         self.gradient = None
-        super(Parameter, self).__init__(shape, value, **kwargs)
+        super().__init__(shape, value, **kwargs)
         self._is_constant = True
 
     def get_data(self):
@@ -116,6 +116,6 @@ class Parameter(Leaf):
         """
         attr_str = self._get_attr_str()
         if len(attr_str) > 0:
-            return "Parameter(%s%s)" % (self.shape, attr_str)
+            return f"Parameter({self.shape}{attr_str})"
         else:
-            return "Parameter(%s)" % (self.shape,)
+            return f"Parameter({self.shape})"

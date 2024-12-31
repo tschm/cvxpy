@@ -33,7 +33,7 @@ class Node:
 class Ground(Node):
     """ A node at 0 volts. """
     def constraints(self):
-        return [self.voltage == 0] + super(Ground, self).constraints()
+        return [self.voltage == 0] + super().constraints()
 
 class Device(metaclass=abc.ABCMeta):
     """ A device on a circuit. """
@@ -62,7 +62,7 @@ class Resistor(Device):
     def __init__(self, pos_node, neg_node, resistance) -> None:
         self._current = cp.Variable()
         self.resistance = resistance
-        super(Resistor, self).__init__(pos_node, neg_node)
+        super().__init__(pos_node, neg_node)
 
     def voltage(self):
         return -self.resistance*self.current()
@@ -75,7 +75,7 @@ class VoltageSource(Device):
     def __init__(self, pos_node, neg_node, voltage) -> None:
         self._current = cp.Variable()
         self._voltage = voltage
-        super(VoltageSource, self).__init__(pos_node, neg_node)
+        super().__init__(pos_node, neg_node)
 
     def voltage(self):
         return self._voltage
@@ -88,7 +88,7 @@ class CurrentSource(Device):
     def __init__(self, pos_node, neg_node, current) -> None:
         self._current = current
         self._voltage = cp.Variable()
-        super(CurrentSource, self).__init__(pos_node, neg_node)
+        super().__init__(pos_node, neg_node)
 
     def voltage(self):
         return self._voltage

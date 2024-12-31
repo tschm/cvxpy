@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
@@ -30,9 +30,9 @@ class AxisAtom(Atom):
     def __init__(self, expr, axis: Optional[int] = None, keepdims: bool = False) -> None:
         self.axis = axis
         self.keepdims = keepdims
-        super(AxisAtom, self).__init__(expr)
+        super().__init__(expr)
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """
         Returns the shape of the atom after applying a function along an axis.
         """
@@ -70,9 +70,9 @@ class AxisAtom(Atom):
                     axis += dim
                 if axis >= dim or axis < 0:
                     raise ValueError(f"axis {axis} is out of bounds for array of dimension {dim}")
-        super(AxisAtom, self).validate_arguments()
+        super().validate_arguments()
 
-    def _axis_grad(self, values) -> Optional[List[sp.csc_matrix]]:
+    def _axis_grad(self, values) -> Optional[list[sp.csc_matrix]]:
         """
         Gives the (sub/super)gradient of the atom w.r.t. each argument.
 
@@ -102,7 +102,7 @@ class AxisAtom(Atom):
                     else:
                         d = np.array(d).flatten()
                     row = np.linspace(i*n, i*n+m-1, m)  # [i*n, i*n+1, ..., i*n+m-1]
-                    col = np.ones((m))*i
+                    col = np.ones(m)*i
                     D = D + sp.csc_matrix((d, (row, col)),
                                           shape=(m*n, n))  # d must be 1-D
             else:  # function apply to each row
@@ -114,7 +114,7 @@ class AxisAtom(Atom):
                     if d is None:
                         return [None]
                     row = np.linspace(i, i+(n-1)*m, n)  # [0+i, m+i, ..., m(n-1)+i]
-                    col = np.ones((n))*i
+                    col = np.ones(n)*i
                     D = D + sp.csc_matrix((np.array(d)[0], (row, col)),
                                           shape=(m*n, m))  # d must be 1-D
         return [D]

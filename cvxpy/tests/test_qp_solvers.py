@@ -330,7 +330,7 @@ class TestQp(BaseTest):
         eta = 1
 
         A = np.ones((k, n))
-        b = np.ones((k))
+        b = np.ones(k)
         obj = sum_squares(A @ self.xsr - b) + \
             eta*sum_squares(self.xsr[:-1]-self.xsr[1:])
         p = Problem(Minimize(obj), [])

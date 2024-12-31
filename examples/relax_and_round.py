@@ -15,7 +15,6 @@ limitations under the License.
 """
 
 # Relax and round example for talk.
-from __future__ import division
 
 import numpy
 

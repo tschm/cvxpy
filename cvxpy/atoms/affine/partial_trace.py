@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
@@ -21,7 +21,7 @@ import scipy.sparse as sp
 from cvxpy.atoms.atom import Atom
 
 
-def _term(expr, j: int, dims: Tuple[int], axis: Optional[int] = 0):
+def _term(expr, j: int, dims: tuple[int], axis: Optional[int] = 0):
     """Helper function for partial trace.
 
     Parameters
@@ -55,7 +55,7 @@ def _term(expr, j: int, dims: Tuple[int], axis: Optional[int] = 0):
 
 
 # ruff: noqa: E501
-def partial_trace(expr, dims: Tuple[int], axis: Optional[int] = 0):
+def partial_trace(expr, dims: tuple[int], axis: Optional[int] = 0):
     """
     Assumes :math:`\\texttt{expr} = X_1 \\otimes \\cdots \\otimes X_n` is a 2D Kronecker
     product composed of :math:`n = \\texttt{len(dims)}` implicit subsystems.

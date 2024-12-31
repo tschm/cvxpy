@@ -84,11 +84,11 @@ class Solution:
                         self.attr)
 
     def __str__(self) -> str:
-        return "Solution(status=%s, opt_val=%s, primal_vars=%s, dual_vars=%s, attr=%s)" % (
+        return "Solution(status={}, opt_val={}, primal_vars={}, dual_vars={}, attr={})".format(
           self.status, self.opt_val, self.primal_vars, self.dual_vars, self.attr)
 
     def __repr__(self) -> str:
-        return "Solution(%s, %s, %s, %s)" % (self.status,
+        return "Solution({}, {}, {}, {})".format(self.status,
                                              self.primal_vars,
                                              self.dual_vars,
                                              self.attr)

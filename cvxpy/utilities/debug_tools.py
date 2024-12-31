@@ -59,7 +59,7 @@ def build_non_disciplined_error_msg(problem, discipline_type) -> str:
         else:
             convex_str = "{}{}".format(prefix_conv, "convex")
             concave_str = "{}{}".format(prefix_conv, "concave")
-            fun_attr_check = getattr(problem.objective.args[0], "is_{}".format(convex_str))()
+            fun_attr_check = getattr(problem.objective.args[0], f"is_{convex_str}")()
             msg = ("The objective is not {}, even though each sub-expression is.\n"
                    "You are trying to {} a function that is {}.").format(
                         discipline_type,
@@ -70,9 +70,9 @@ def build_non_disciplined_error_msg(problem, discipline_type) -> str:
             msg += '\n%s' % (str(expr,))
         return msg
     not_disciplined_constraints = [expr for expr in problem.constraints if not expr.is_dcp()]
-    msg = "The following constraints are not {}:".format(discipline_type)
+    msg = f"The following constraints are not {discipline_type}:"
     for expr in not_disciplined_constraints:
-        msg += '\n%s , because the following subexpressions are not:' % (expr,)
+        msg += f'\n{expr} , because the following subexpressions are not:'
         non_disciplined_leaves = find_non_prop_leaves(expr)
         for subexpr in non_disciplined_leaves:
             msg += '\n|--  %s' % (str(subexpr,))

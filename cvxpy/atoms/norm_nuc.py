@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -28,7 +27,7 @@ class normNuc(Atom):
     _allow_complex = True
 
     def __init__(self, A) -> None:
-        super(normNuc, self).__init__(A)
+        super().__init__(A)
 
     def numeric(self, values):
         """Returns the nuclear norm (i.e. the sum of the singular values) of A.
@@ -51,12 +50,12 @@ class normNuc(Atom):
         D = U.dot(V)
         return [sp.csc_matrix(D.ravel(order='F')).T]
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return tuple()
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Returns sign (is positive, is negative) of the expression.
         """
         return (True, False)

@@ -79,7 +79,7 @@ class ConeDims:
         self.psd = [int(c.shape[0]) for c in constr_map[PSD]]
 
     def __repr__(self) -> str:
-        return "(zero: {0}, nonpos: {1}, exp: {2}, soc: {3}, psd: {4})".format(
+        return "(zero: {}, nonpos: {}, exp: {}, soc: {}, psd: {})".format(
             self.zero, self.nonneg, self.exp, self.soc, self.psd)
 
     def __str__(self) -> str:

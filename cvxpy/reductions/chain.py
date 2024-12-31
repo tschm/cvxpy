@@ -12,7 +12,7 @@ class Chain(Reduction):
     """
 
     def __init__(self, problem=None, reductions=None) -> None:
-        super(Chain, self).__init__(problem=problem)
+        super().__init__(problem=problem)
         self.reductions = [] if reductions is None else reductions
 
     def __str__(self):

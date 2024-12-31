@@ -16,7 +16,6 @@ limitations under the License.
 
 import operator as op
 from functools import reduce
-from typing import List, Tuple
 
 import numpy as np
 import scipy.sparse as sp
@@ -48,7 +47,7 @@ class BinaryOperator(AffAtom):
     OP_NAME = 'BINARY_OP'
 
     def __init__(self, lh_exp, rh_exp) -> None:
-        super(BinaryOperator, self).__init__(lh_exp, rh_exp)
+        super().__init__(lh_exp, rh_exp)
 
     def name(self):
         pretty_args = []
@@ -64,7 +63,7 @@ class BinaryOperator(AffAtom):
         """
         return reduce(self.OP_FUNC, values)
 
-    def sign_from_args(self) -> Tuple[bool, bool]:
+    def sign_from_args(self) -> tuple[bool, bool]:
         """Default to rules for times.
         """
         return u.sign.mul_sign(self.args[0], self.args[1])
@@ -115,7 +114,7 @@ class MulExpression(BinaryOperator):
         else:
             return np.matmul(values[0], values[1])
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return u.shape.mul_shapes(self.args[0].shape, self.args[1].shape)
@@ -180,7 +179,7 @@ class MulExpression(BinaryOperator):
             A list of SciPy CSC sparse matrices or None.
         """
         if self.args[0].is_constant() or self.args[1].is_constant():
-            return super(MulExpression, self)._grad(values)
+            return super()._grad(values)
 
         # TODO(akshayka): Verify that the following code is correct for
         # non-affine arguments.
@@ -203,8 +202,8 @@ class MulExpression(BinaryOperator):
         return [DX, DY]
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Multiply the linear expressions.
 
         Parameters
@@ -239,7 +238,7 @@ class multiply(MulExpression):
 
     def __init__(self, lh_expr, rh_expr) -> None:
         lh_expr, rh_expr = self.broadcast(lh_expr, rh_expr)
-        super(multiply, self).__init__(lh_expr, rh_expr)
+        super().__init__(lh_expr, rh_expr)
 
     def is_atom_log_log_convex(self) -> bool:
         """Is the atom log-log convex?
@@ -273,7 +272,7 @@ class multiply(MulExpression):
         else:
             return np.multiply(values[0], values[1])
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """The sum of the argument dimensions - 1.
         """
         return u.shape.sum_shapes([arg.shape for arg in self.args])
@@ -291,8 +290,8 @@ class multiply(MulExpression):
                (self.args[0].is_nsd() and self.args[1].is_psd())
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Multiply the expressions elementwise.
 
         Parameters
@@ -332,7 +331,7 @@ class DivExpression(BinaryOperator):
 
     def __init__(self, lh_expr, rh_expr) -> None:
         lh_expr, rh_expr = self.broadcast(lh_expr, rh_expr)
-        super(DivExpression, self).__init__(lh_expr, rh_expr)
+        super().__init__(lh_expr, rh_expr)
 
     def numeric(self, values):
         """Divides numerator by denominator.
@@ -352,7 +351,7 @@ class DivExpression(BinaryOperator):
     def is_qpwa(self) -> bool:
         return self.args[0].is_qpwa() and self.args[1].is_constant()
 
-    def shape_from_args(self) -> Tuple[int, ...]:
+    def shape_from_args(self) -> tuple[int, ...]:
         """Returns the (row, col) shape of the expression.
         """
         return self.args[0].shape
@@ -399,8 +398,8 @@ class DivExpression(BinaryOperator):
             return self.args[0].is_nonneg()
 
     def graph_implementation(
-        self, arg_objs, shape: Tuple[int, ...], data=None
-    ) -> Tuple[lo.LinOp, List[Constraint]]:
+        self, arg_objs, shape: tuple[int, ...], data=None
+    ) -> tuple[lo.LinOp, list[Constraint]]:
         """Multiply the linear expressions.
 
         Parameters

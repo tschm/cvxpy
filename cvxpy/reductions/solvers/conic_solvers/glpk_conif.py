@@ -43,7 +43,7 @@ class GLPK(CVXOPT):
     def invert(self, solution, inverse_data):
         """Returns the solution to the original problem given the inverse_data.
         """
-        return super(GLPK, self).invert(solution, inverse_data)
+        return super().invert(solution, inverse_data)
 
     def solve_via_data(self, data, warm_start: bool, verbose: bool, solver_opts, solver_cache=None):
         import cvxopt.solvers

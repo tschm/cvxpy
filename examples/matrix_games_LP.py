@@ -15,7 +15,6 @@ limitations under the License.
 """
 
 # for decimal division
-from __future__ import division
 
 import cvxopt
 

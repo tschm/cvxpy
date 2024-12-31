@@ -26,7 +26,7 @@ class Card(NonCvxVariable):
     # k - the maximum cardinality of the variable.
     def __init__(self, rows: int = 1, cols: int = 1, k=None, *args, **kwargs) -> None:
         self.k = k
-        super(Card, self).__init__(rows, cols, *args, **kwargs)
+        super().__init__(rows, cols, *args, **kwargs)
 
     # All values except k-largest (by magnitude) set to zero.
     def _round(self, matrix):

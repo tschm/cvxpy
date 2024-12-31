@@ -16,7 +16,7 @@ limitations under the License.
 
 # The implementation of partial_transpose is due to @duguyipiao.
 
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
@@ -24,7 +24,7 @@ import scipy.sparse as sp
 from cvxpy.atoms.atom import Atom
 
 
-def _term(expr, i: int, j: int, dims: Tuple[int], axis: Optional[int] = 0):
+def _term(expr, i: int, j: int, dims: tuple[int], axis: Optional[int] = 0):
     """Helper function for partial transpose.
 
     Parameters
@@ -56,7 +56,7 @@ def _term(expr, i: int, j: int, dims: Tuple[int], axis: Optional[int] = 0):
     return a @ expr @ a
 
 
-def partial_transpose(expr, dims: Tuple[int, ...], axis: Optional[int] = 0):
+def partial_transpose(expr, dims: tuple[int, ...], axis: Optional[int] = 0):
     """
     Assumes :math:`\\texttt{expr} = X_1 \\otimes ... \\otimes X_n` is a 2D Kronecker
     product composed of :math:`n = \\texttt{len(dims)}` implicit subsystems.
