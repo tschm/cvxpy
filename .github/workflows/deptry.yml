@@ -21,7 +21,7 @@ jobs:
         run: pip install --no-cache-dir deptry
 
       - name: Install package
-        run: pip install .
+        run: pip install .[all]
 
       - name: Run dependency check
         run: deptry cvxpy --per-rule-ignores "DEP003=cvxpy"
